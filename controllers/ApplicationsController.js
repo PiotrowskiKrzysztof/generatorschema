@@ -1,10 +1,7 @@
 require('../db/mongoose');
 const fs = require('fs');
 const N3 = require('n3');
-const { resolve } = require('path');
 const path = require('path');
-const { name } = require('tar/lib/types');
-const { callbackify } = require('util');
 const Element = require('../db/models/element');
 const ElementNoNested = require('../db/models/elementNoNested');
 const PropNoNested = require('../db/models/propNoNested');
