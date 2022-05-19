@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,aAAa,CAAC;ECMV,QAAQ,EAAE,QAAQ;EAClB,OAAO,EAAE,KAAK;EACd,MAAM,EAAE,IAAI;EACZ,KAAK,EDPgB,IAAI;ECQzB,aAAa,EAAE,GAAG;EAClB,SAAS,EAAE,IAAI;EACf,OAAO,EAAE,SAAS;EAClB,aAAa,EAAE,GAAG;EAClB,MAAM,EAAE,OAAO;CDXlB",
+    "sources": [
+        "GeneratorSelectNext.scss",
+        "../Variables/Variables.scss"
+    ],
+    "names": [],
+    "file": "GeneratorSelectNext.css"
+}

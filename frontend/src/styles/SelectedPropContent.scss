@@ -1,0 +1,51 @@
+@import '../Variables/Variables.scss';
+
+.selectedProp__context {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    p {
+        width: 25%;
+        align-self: center;
+        background-color: lightgray;
+    }
+
+    input {
+        width: 75%;
+        align-self: center;
+        box-sizing: border-box;
+        margin-left: 10px;
+    }
+
+    .buttonNewTypeProp {
+        margin-left: 10px;
+        border: 5em;
+        cursor: pointer;
+        outline: none;
+        font-size: 18px;
+        // background-image: linear-gradient(45deg, #4568dc, #b06ab3);
+        background-color: $whiteColor;
+        color: $blackColor;
+        border: 1px solid $blackColor;
+        padding: 0 2em;
+        border-radius: 5px;   
+    }
+
+    select {
+        width: 100%;
+        text-align: center;
+        margin-left: 10px;
+        font-size: 18px;
+    }
+
+    .typeAdded {
+        width: 75%;
+    }
+
+    .radio {
+        background-color: red;
+    }
+}

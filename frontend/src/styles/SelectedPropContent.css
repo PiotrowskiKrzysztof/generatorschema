@@ -1,0 +1,59 @@
+.selectedProp__context {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.selectedProp__context p {
+  width: 25%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  background-color: lightgray;
+}
+
+.selectedProp__context input {
+  width: 75%;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-left: 10px;
+}
+
+.selectedProp__context .buttonNewTypeProp {
+  margin-left: 10px;
+  border: 5em;
+  cursor: pointer;
+  outline: none;
+  font-size: 18px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  padding: 0 2em;
+  border-radius: 5px;
+}
+
+.selectedProp__context select {
+  width: 100%;
+  text-align: center;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.selectedProp__context .typeAdded {
+  width: 75%;
+}
+
+.selectedProp__context .radio {
+  background-color: red;
+}
+/*# sourceMappingURL=SelectedPropContent.css.map */

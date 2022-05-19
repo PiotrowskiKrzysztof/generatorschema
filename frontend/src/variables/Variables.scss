@@ -1,0 +1,30 @@
+// COLORS
+$blackColor: black;
+$whiteColor: white;
+
+// FONTS
+
+// MIXINS
+@mixin selectStyle($size) {
+    position: relative;
+    display: block;
+    margin: auto;
+    width: $size;
+    margin-bottom: 5px;
+    font-size: 18px; 
+    padding: 0.7em 2em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@mixin buttonStyle {
+    border: 5em;
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+    background-color: $whiteColor;
+    color: $blackColor;
+    border: 1px solid $blackColor;
+    padding: 0.7em 2em;
+    border-radius: 5px;   
+}

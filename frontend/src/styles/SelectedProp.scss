@@ -1,0 +1,37 @@
+@import '../Variables/Variables.scss';
+
+.selectedProp {
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid $blackColor;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 40px auto 40px;
+
+    .selectedProp__icon {
+        grid-column: 1;
+        cursor: pointer;
+    }
+
+    label {
+        grid-column: 2;
+        align-self: center;
+    }
+
+    .selectedProp__delete {
+        grid-column: 3;
+        cursor: pointer; 
+        text-align: right;
+    }
+
+    .hide {
+        display: none;
+        
+    }
+
+    .selectedPropContent {
+        grid-column-start: span 3;
+        // width: 100%;
+    }   
+}

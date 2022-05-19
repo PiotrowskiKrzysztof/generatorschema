@@ -1,0 +1,5 @@
+@import '../Variables/Variables.scss';
+
+.customSelect {
+    @include selectStyle(100%); 
+}

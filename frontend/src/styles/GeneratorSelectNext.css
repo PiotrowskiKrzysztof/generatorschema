@@ -1,0 +1,12 @@
+.customSelect {
+  position: relative;
+  display: block;
+  margin: auto;
+  width: 100%;
+  margin-bottom: 5px;
+  font-size: 18px;
+  padding: 0.7em 2em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/*# sourceMappingURL=GeneratorSelectNext.css.map */
