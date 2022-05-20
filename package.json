@@ -4,9 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "heroku-postbuild": "cd frontend && npm install && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "cd frontend npm run build"
   },
   "author": "",
   "dependencies": {
@@ -21,6 +24,7 @@
     "mongodb": "^4.5.0",
     "mongoose": "^6.2.10",
     "n3": "^1.12.1",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "serve": "^13.0.2"
   }
 }
