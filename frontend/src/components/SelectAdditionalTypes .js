@@ -15,8 +15,6 @@ function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectP
         }
     });
 
-    console.log(thisProp);
-
     return(
         <div>
             <div className="addProperty">

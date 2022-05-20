@@ -40,8 +40,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                                         valueProp: null}]);
     }
 
-    console.log(chosenProps);
-
     function handleValueProp(e) {
         let value = e.target.value;        
         if(!isNaN(value)) {
@@ -57,10 +55,14 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         }
         const handleObjData = e.target.name.split(' ');
         if(handleObjData[1] === 'undefined') {
-            const indexObj = chosenProps.findIndex(e => e.nameShort === handleObjData[0]);
+            const indexObj = chosenProps.findIndex(el => el._id === Number(handleObjData[2]));
             chosenProps[indexObj].valueProp = value;
         } else {
-            const indexObj = chosenPropsAdditional.findIndex(e => e.nameShort === handleObjData[0] && e.parent === handleObjData[1]);
+            console.log(handleObjData);
+            const indexObj = chosenPropsAdditional.findIndex(el => el._id === Number(handleObjData[2]));
+            // console.log(indexObj);
+            console.log(chosenPropsAdditional);
+            // console.log(chosenProps);
             chosenPropsAdditional[indexObj].valueProp = value;
         };
     }
@@ -77,13 +79,15 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     }
 
     function selectPropAdditional(e) {
-        const tmpObj = propsNoNested.find(element => element.nameShort === e.target.value);
-        const index = chosenPropsAdditional.lastIndexOf(chosenPropsAdditional.find(el => el.nameShort === e.target.name));
-        const indexx = e.target.selectedIndex;
-        const thisString = e.target[indexx].outerHTML;
-        const type = thisString.slice(thisString.indexOf('"'), thisString.lastIndexOf('"')).substring(1);
         const tmpParentData = e.target.name;
         const parentData = tmpParentData.split(' ');
+        console.log(parentData);
+        const tmpObj = propsNoNested.find(element => element.nameShort === e.target.value);
+        const index = chosenPropsAdditional.indexOf(chosenPropsAdditional.find(el => el._id === Number(parentData[1])));
+        console.log('>>>>>>>>>>> ' + index);
+        const indexx = e.target.selectedIndex;
+        const thisString = e.target[indexx].outerHTML;
+        const type = thisString.slice(thisString.indexOf('"'), thisString.lastIndexOf('"')).substring(1);        
         if(index === -1) {
             setChosenPropsAdditional( arr => [...arr, {
                 name: tmpObj.name,
@@ -93,23 +97,27 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 parentID: parentData[1],
                 margin: 10,
                 startProp: parentData[0],
+                startPropID: parentData[1],
                 mainType: type,
-                path: e.target.name + ' ' + tmpObj.nameShort + ' '}]);
-        } else if(chosenPropsAdditional.some(el => el.nameShort === e.target.name)) {
-            const index2 = chosenPropsAdditional.findIndex(el => el.nameShort === e.target.name) + 1;
-            const lastIndex = chosenPropsAdditional.map(el => el.parent === e.target.name).lastIndexOf(true);
-            const fetchMainProp = chosenPropsAdditional.find(el => el.nameShort === e.target.name); 
+                valueProp: null,
+                path: parentData[0] + ' ' + tmpObj.nameShort + ' '}]);
+        } else if(chosenPropsAdditional.some(el => el.nameShort === parentData[0])) {
+            const index2 = chosenPropsAdditional.findIndex(el => el.nameShort === parentData[0]) + 1;
+            const lastIndex = chosenPropsAdditional.map(el => el.parent === parentData[0]).lastIndexOf(true);
+            const fetchMainProp = chosenPropsAdditional.find(el => el.nameShort === parentData[0]); 
             const tmpArr = chosenPropsAdditional;
             if(lastIndex === -1) {
                 tmpArr.splice(index2 + 1, 0, {
                     name: tmpObj.name,
                     nameShort: tmpObj.nameShort,
-                    _id: tmpObj._id,
+                    _id: Math.floor((Math.random() * 999999999999) + 1),
                     parent: parentData[0],
                     parentID: parentData[1],
                     margin: fetchMainProp.margin + 10,
                     startProp: fetchMainProp.startProp,
+                    startPropID: fetchMainProp.startPropID,
                     mainType: type,
+                    valueProp: null,
                     path: fetchMainProp.path + tmpObj.nameShort + ' '});
                 setChosenPropsAdditional(tmpArr);
                 setCounter(counter + 1);
@@ -117,18 +125,20 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 tmpArr.splice(lastIndex + 1, 0, {
                     name: tmpObj.name,
                     nameShort: tmpObj.nameShort,
-                    _id: tmpObj._id,
+                    _id: Math.floor((Math.random() * 999999999999) + 1),
                     parent: parentData[0],
                     parentID: parentData[1],
                     margin: fetchMainProp.margin + 10,
                     startProp: fetchMainProp.startProp,
+                    startPropID: fetchMainProp.startPropID,
                     mainType: type,
+                    valueProp: null,
                     path: fetchMainProp.path + tmpObj.nameShort + ' '});
                 setChosenPropsAdditional(tmpArr);
                 setCounter(counter + 1);
             }
             
-        }        
+        }   
     }
 
     function deleteProp(e) {        
@@ -189,8 +199,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     function fetchMargin(margin, prop) {
         setMarginElements([...marginElements, {margin, prop}]);
     }
-    function generateJSONLD() {   
-        console.log(chosenProps);     
+    function generateJSONLD() {       
         let tmpObj = {};
         tmpObj['@context'] = 'http://schema.org/';
         tmpObj['@type'] = pathElements[pathElements.length - 1];
@@ -368,7 +377,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 usedTypes={ usedTypes }
             />
             {additionalTypesNested.map(element => {
-                console.log(additionalTypesNested);
                     return(
                         <SelectAdditionalTypes
                             key={ element.prop }

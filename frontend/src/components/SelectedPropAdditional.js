@@ -55,6 +55,8 @@ function SelectedPropAdditional({ element, thisProp, propsNoNested, newTypeProp,
         else return 'selectedPropContent';
     }
 
+    console.log(fullElement);
+
     return(
         <div className='selectedProp' style={{ marginLeft: thisProp.margin*2 }}>
             <p className="selectedProp__icon" onClick={() => setShow(!show)}><BsArrowDown /></p>            

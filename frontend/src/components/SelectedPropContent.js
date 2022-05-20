@@ -57,21 +57,21 @@ function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='text' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } value={ valueText } onChange={ e=> { handleValueProp(e); handleChangeText(e) }}></input>
+                <input type='text' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } value={ valueText } onChange={ e=> { handleValueProp(e); handleChangeText(e) }}></input>
             </div>
         );
     } else if(item === 'URL') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='url' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } value={ valueUrl } onChange={ e=> { handleValueProp(e); handleChangeUrl(e) }}></input>
+                <input type='url' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } value={ valueUrl } onChange={ e=> { handleValueProp(e); handleChangeUrl(e) }}></input>
             </div>
         )
     } else if(item === 'Boolean') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <select disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } onChange={ handleValueProp }>
+                <select disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }>
                     <option value='true'>true</option>
                     <option value='false'>false</option>
                 </select>
@@ -81,63 +81,63 @@ function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='date' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } onChange={ handleValueProp }></input>
+                <input type='date' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }></input>
             </div>
         )
     } else if(item === 'DateTime') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='datetime-local' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } onChange={ handleValueProp }></input>
+                <input type='datetime-local' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }></input>
             </div>
         )
     } else if(item === 'Number') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='number' step='.00001' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } value={ valueNumber } onChange={ e => { handleChangeNumber(e); handleValueProp(e) }}></input>
+                <input type='number' step='.00001' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } value={ valueNumber } onChange={ e => { handleChangeNumber(e); handleValueProp(e) }}></input>
             </div>
         )
     } else if(item === 'Integer') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='text' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } value={ valueInteger } onChange={ e => { handleChangeInteger(e); handleValueProp(e) }}></input>
+                <input type='text' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } value={ valueInteger } onChange={ e => { handleChangeInteger(e); handleValueProp(e) }}></input>
             </div>
         )
     } else if(item === 'Float') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='number' step='.01' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } value={ valueFloat } onChange={ e => { handleChangeFloat(e); handleValueProp(e) }}></input>
+                <input type='number' step='.01' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } value={ valueFloat } onChange={ e => { handleChangeFloat(e); handleValueProp(e) }}></input>
             </div>
         )
     } else if(item === 'Time') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='time' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } onChange={ handleValueProp }></input>
+                <input type='time' disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }></input>
             </div>
         )
     } else if(item === 'CssSelectorType') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='text' placeholder="Make sure that the entered data are correct!" disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } onChange={ handleValueProp }></input>
+                <input type='text' placeholder="Make sure that the entered data are correct!" disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }></input>
             </div>
         )
     } else if(item === 'PronounceableText') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='text' placeholder="Make sure that the entered data are correct!" disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } onChange={ handleValueProp }></input>
+                <input type='text' placeholder="Make sure that the entered data are correct!" disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }></input>
             </div>
         )
     } else if(item === 'XPathType') {
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <input type='text' placeholder="Make sure that the entered data are correct!" disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent } onChange={ handleValueProp }></input>
+                <input type='text' placeholder="Make sure that the entered data are correct!" disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }></input>
             </div>
         )
     } else {
