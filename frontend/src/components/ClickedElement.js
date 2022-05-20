@@ -36,9 +36,11 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         const tmpObj = propsNoNested.find(element => element.nameShort === e.target.value);
         setChosenProps( arr => [...arr, {name: tmpObj.name,
                                         nameShort: tmpObj.nameShort,
-                                        _id: tmpObj._id,
+                                        _id: Math.floor((Math.random() * 999999999999) + 1),
                                         valueProp: null}]);
     }
+
+    console.log(chosenProps);
 
     function handleValueProp(e) {
         let value = e.target.value;        
@@ -64,7 +66,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     }
 
     function resetValueProp(chosenObj) {
-        // console.log(chosenObj);
         if(chosenObj.parent === undefined) {
             const tmp = chosenProps.find(obj => obj === chosenObj);
             tmp.valueProp = null;
@@ -72,8 +73,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         } else {
             const tmp = chosenPropsAdditional.find(obj => obj === chosenObj);
             tmp.valueProp = null;
-        } 
-        console.log(chosenPropsAdditional);       
+        }   
     }
 
     function selectPropAdditional(e) {
@@ -82,14 +82,17 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         const indexx = e.target.selectedIndex;
         const thisString = e.target[indexx].outerHTML;
         const type = thisString.slice(thisString.indexOf('"'), thisString.lastIndexOf('"')).substring(1);
+        const tmpParentData = e.target.name;
+        const parentData = tmpParentData.split(' ');
         if(index === -1) {
             setChosenPropsAdditional( arr => [...arr, {
                 name: tmpObj.name,
                 nameShort: tmpObj.nameShort,
-                _id: tmpObj._id,
-                parent: e.target.name,
+                _id: Math.floor((Math.random() * 999999999999) + 1),
+                parent: parentData[0],
+                parentID: parentData[1],
                 margin: 10,
-                startProp: e.target.name,
+                startProp: parentData[0],
                 mainType: type,
                 path: e.target.name + ' ' + tmpObj.nameShort + ' '}]);
         } else if(chosenPropsAdditional.some(el => el.nameShort === e.target.name)) {
@@ -102,7 +105,8 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     name: tmpObj.name,
                     nameShort: tmpObj.nameShort,
                     _id: tmpObj._id,
-                    parent: e.target.name,
+                    parent: parentData[0],
+                    parentID: parentData[1],
                     margin: fetchMainProp.margin + 10,
                     startProp: fetchMainProp.startProp,
                     mainType: type,
@@ -114,7 +118,8 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     name: tmpObj.name,
                     nameShort: tmpObj.nameShort,
                     _id: tmpObj._id,
-                    parent: e.target.name,
+                    parent: parentData[0],
+                    parentID: parentData[1],
                     margin: fetchMainProp.margin + 10,
                     startProp: fetchMainProp.startProp,
                     mainType: type,
@@ -123,25 +128,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 setCounter(counter + 1);
             }
             
-        }
-        //  else {
-        //     // setChosenPropsAdditional( arr => [...arr, {name: tmpObj.name,
-        //     //     nameShort: tmpObj.nameShort,
-        //     //     _id: tmpObj._id,
-        //     //     parent: e.target.name,
-        //     //     margin: 10}]);
-        //     const length = chosenPropsAdditional.filter(el => el.parent === e.target.name).length;
-        //     const tmpArr = chosenPropsAdditional;
-        //     tmpArr.splice(index + length, 0, {
-        //         name: tmpObj.name,
-        //         nameShort: tmpObj.nameShort,
-        //         _id: tmpObj._id,
-        //         parent: e.target.name,
-        //         margin: 10});
-        //     setChosenPropsAdditional(tmpArr);
-        //     setCounter(counter + 1);
-        // }
-        
+        }        
     }
 
     function deleteProp(e) {        
@@ -170,27 +157,27 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     }
 
     function newTypeProp(item, thisProp) {
-        if(additionalTypesNested.some(e => e.prop === thisProp)) {
+        if(additionalTypesNested.some(e => e.prop === thisProp.nameShort)) {
             const tmpArr = additionalTypesNested;
-            const index = additionalTypesNested.indexOf(additionalTypesNested.find(e => e.prop === thisProp));
+            const index = additionalTypesNested.indexOf(additionalTypesNested.find(e => e.prop === thisProp.nameShort));
             tmpArr[index].types.push(item);
             setAdditionalTypesNested(tmpArr);
         } else {
             const tmp = [];
             tmp.push(item);
-            const tmpArr = [...additionalTypesNested, {types:tmp, prop:thisProp}];
+            const tmpArr = [...additionalTypesNested, {types:tmp, prop:thisProp.nameShort, _id: thisProp._id}];
             setAdditionalTypesNested(tmpArr);
         }
-        setAdditionalTypes(arr => [...arr, {types: item, prop: thisProp, lastChild: item}]);
+        setAdditionalTypes(arr => [...arr, {types: item, prop: thisProp.nameShort, lastChild: item, _id: thisProp._id}]);
         let tmpItem = item;
         let tmpArrParents = [];
-        while(!tmpArrParents.some(e => e.types === 'Thing' && e.prop === thisProp)) {
+        while(!tmpArrParents.some(e => e.types === 'Thing' && e.prop === thisProp.nameShort)) {
             let tmpObj = allElements.find(e => e.nameShort === tmpItem);
             if(tmpObj.parent === 'this') {
-                tmpArrParents.push({types: 'Thing', prop: thisProp, lastChild: item});
+                tmpArrParents.push({types: 'Thing', prop: thisProp.nameShort, lastChild: item});
                 tmpItem = tmpObj.parentShort;
             } else {
-                tmpArrParents.push({types: tmpObj.parentShort, prop: thisProp, lastChild: item});
+                tmpArrParents.push({types: tmpObj.parentShort, prop: thisProp.nameShort, lastChild: item});
                 tmpItem = tmpObj.parentShort;
             }               
         }
@@ -202,8 +189,8 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     function fetchMargin(margin, prop) {
         setMarginElements([...marginElements, {margin, prop}]);
     }
-
-    function generateJSONLD() {        
+    function generateJSONLD() {   
+        console.log(chosenProps);     
         let tmpObj = {};
         tmpObj['@context'] = 'http://schema.org/';
         tmpObj['@type'] = pathElements[pathElements.length - 1];
@@ -227,15 +214,11 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
 
     function findObject(tmpObj, subProp) {
         const a = Object.keys(tmpObj).find(key => key === subProp.parent);
-
         const currentPath = subProp.path.split(' ');
         currentPath.pop();
-
         if( a !== undefined) {            
                 tmpObj[a]['@type'] = subProp.mainType;
                 tmpObj[a][subProp.nameShort] = {};
-                console.log(subProp.nameShort);
-                console.log(subProp.valueProp);
                 if(subProp.valueProp !== null) {
                     tmpObj[a][subProp.nameShort] = subProp.valueProp;
                 }                
@@ -265,9 +248,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             }
         })
         finallString += '</div>';
-        console.log(chosenPropsAdditional);
         chosenPropsAdditional.forEach(function(subProp, index) {
-            console.log(subProp)
             const wantedElement = '<div property="' + subProp.parent + '" typeof="' + subProp.mainType + '">';
             const wantedElementStartIndex = finallString.indexOf(wantedElement)
             const wantedElementEndIndex =  wantedElementStartIndex + wantedElement.length;
@@ -281,10 +262,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     finallString = finallString.substring(0, wantedElementEndIndex) + elementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
                 }
             }
-            
-            console.log(subProp);
-            console.log(wantedElement);
-            console.log('poczatek: ' + wantedElementStartIndex + ' koniec: ' + wantedElementEndIndex);
         })        
         setFinallRDFa(finallString);
     }
@@ -299,16 +276,11 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         chosenProps.forEach(function(mainProp) {
             if(mainProp.valueProp === null) {
                 const childrenProps = chosenPropsAdditional.filter(el => el.path === mainProp.nameShort + ' ' + el.nameShort + ' ');
-                // console.log(childrenProps);
-                // const wantedProp = chosenPropsAdditional.find(el => el.path === mainProp.nameShort + ' ' + el.nameShort + ' ');
                 childrenProps.forEach(function(child) {
                     blankNodes.push(child);
                     const index = blankNodes.indexOf(child);                
                     blankNodes[index]['blankNode'] = '_:id' + counter;
-                })
-                // blankNodes.push(wantedProp);
-                // const index = blankNodes.indexOf(wantedProp);                
-                // blankNodes[index]['blankNode'] = '_:id' + counter;                
+                })              
                 finallString += '_:id0 <' + mainProp.name + '> _:id' + counter + ' .\n';
                 counter++;
             } else {
@@ -318,13 +290,11 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         })
 
         chosenPropsAdditional.forEach(function(subProp) {
-            console.log(subProp);
             if(blankNodes.some(el => el.path === subProp.path)) {
                 const tmpObj = blankNodes.find(el => el.path === subProp.path);   
                 if(!finallString.includes(tmpObj.blankNode + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/' + tmpObj.mainType + '> .')) {
                     finallString += tmpObj.blankNode + ' <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://schema.org/' + tmpObj.mainType + '> .\n';
                 }
-                /// -------------------------
                 if(subProp.valueProp === null) {
                     const childrenProps = chosenPropsAdditional.filter(el => el.path === subProp.path + el.nameShort + ' ');
                     childrenProps.forEach(function(child){
@@ -335,15 +305,11 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     finallString += tmpObj.blankNode + ' <' + subProp.name + '> _:id' + counter + ' .\n';
                     counter++;  
                 } else {
-                    // console.log(subProp);
                     finallString += tmpObj.blankNode + ' <' + subProp.name + '> "' + subProp.valueProp + '" .\n';
                 }
                 
             }
         })
-        console.log(blankNodes);
-        console.log(finallString);
-        console.log(chosenPropsAdditional);
         setFinalNTriples(finallString);
     }
 
@@ -362,8 +328,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 element.download = pathElements[pathElements.length - 1] + ".nt";  
                 break;
         }
-        // element.download = "myFile.txt";
-        document.body.appendChild(element); // Required for this to work in FireFox
+        document.body.appendChild(element);
         element.click();
     }
 
@@ -403,6 +368,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 usedTypes={ usedTypes }
             />
             {additionalTypesNested.map(element => {
+                console.log(additionalTypesNested);
                     return(
                         <SelectAdditionalTypes
                             key={ element.prop }
@@ -410,13 +376,12 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                             propsNoNested={ propsNoNested }
                             prop={ element.prop }
                             selectPropAdditional={ selectPropAdditional }
-                            additionalTypes={ additionalTypes }                            
+                            additionalTypes={ additionalTypes }
+                            idElement={ element._id }                            
                         />
                     )
-                })}
-
-            {/* <p>{ finallJSONLD }</p>
-            <p>{ finallRDFa }</p> */}
+                })
+            }
             <h1>Generate Code</h1>
             {finallJSONLD !== '' && 
             <div>
@@ -446,10 +411,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 <button className='customButton' onClick={ generateRDFa }>Generate RDFa</button>
                 <button className='customButton' onClick={ generateNTriples }>Generate N-Triples</button>
             </div>
-            {/* <button className='customButton' onClick={ generateNTriples }>Generate N-Triples</button> */}
-            {/* <textarea spellCheck='false'>{ finallJSONLD }</textarea> */}
-            
-
         </div>
     );
 }

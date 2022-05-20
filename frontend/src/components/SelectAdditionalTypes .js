@@ -3,7 +3,7 @@ import '../styles/SelectedProp.css';
 import SelectTypesOptions from "./SelectTypesOptions";
 
 
-function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectPropAdditional, additionalTypes }) {
+function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectPropAdditional, additionalTypes, idElement }) {
     
     const thisProp = propsNoNested.find(item => item.nameShort === prop);
     const uniqueTypes = [...new Set(additionalTypes.map(item => item.types))];
@@ -15,34 +15,18 @@ function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectP
         }
     });
 
-
-    // const [commonTypes, setCommonTypes] = useState();
-
-    // useEffect(() => {        
-    //     setCommonTypes(additionalTypesNested.find(e => e.prop === prop).types);
-    // }, [])
-    // console.log('>>>>>>>>>>>>>>>>>>>')
-    // uniqueTypes.map(e => {
-    //     console.log(e);
-    // })
-    // console.log('>>>>>>>>>>>>>>>>>>>')
-
-    // console.log(additionalTypes);
-
+    console.log(thisProp);
 
     return(
         <div>
             <div className="addProperty">
                 <p className='propertyText'>Add property to { thisProp.nameShort }:</p>
-                <select name={ thisProp.nameShort } onChange={ selectPropAdditional } defaultValue='empty'>
+                <select name={ thisProp.nameShort + ' ' + idElement } onChange={ selectPropAdditional } defaultValue='empty'>
                     <option value='empty' disabled hidden>Select property</option>
                     {
-                        // commonTypes != null && commonTypes.map(element => {
-                            // additionalTypesNested.find(e => e.prop === prop).types.map(element => {
                             arrayUniqueByKey.map(element => {
                                 if(element.prop === thisProp.nameShort) {
                                     return (
-                                        // <option key='empty' disabled>--- Properties from { element.types } ---</option>,
                                         <optgroup label={ '--- Properties from ' + element.types + ' ---' } key={element.types + element.prop}>
                                             <SelectTypesOptions 
                                                 allElements={ allElements }

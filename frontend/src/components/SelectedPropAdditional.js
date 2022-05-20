@@ -10,7 +10,6 @@ function SelectedPropAdditional({ element, thisProp, propsNoNested, newTypeProp,
     const [show, setShow] = useState(true);
     const [marginChanged, setMarginChanged] = useState(false);
     const [childrenTypes, setChildrenTypes] = useState([]);
-    // const [childrenTypesProps, setChildrenTypesProps] = useState([]);
     const [margin, setMargin] = useState(0);
     const [blockInputs, setBlockInputs] = useState(false);
     const [notBlockedTypes, setNotBlockedTypes] = useState(selectedProp.types);
@@ -43,14 +42,7 @@ function SelectedPropAdditional({ element, thisProp, propsNoNested, newTypeProp,
         }
     }
 
-
-    /// TRZEBA ZROBIĆ WARUNEK POJAWIANIA SIĘ, JEŻELI RODZIC TEGO OBIEKTU NIE ISTNIEJE TO NULL
-    /// PRZERZUCIĆ TU OBIEKT RODZICA!
-
-
     function addChildrenTypes(typesToAdd) {
-        // console.log('aaaaaaaaaaaaaaaaaa');
-        // console.log(typesToAdd);
         setChildrenTypes(arr => [...arr, typesToAdd]);
     }
 
@@ -63,15 +55,11 @@ function SelectedPropAdditional({ element, thisProp, propsNoNested, newTypeProp,
         else return 'selectedPropContent';
     }
 
-    // console.log('PROP ADDItIONAL CHiLDREN TYPES!!');
-    // console.log(childrenTypes);
-    // console.log(selectedProp);
-
     return(
         <div className='selectedProp' style={{ marginLeft: thisProp.margin*2 }}>
             <p className="selectedProp__icon" onClick={() => setShow(!show)}><BsArrowDown /></p>            
             <label>{thisProp.nameShort} - {thisProp.parent}</label>
-            {childrenTypes.length === 0 && <p className="selectedProp__delete" onClick={ () => {deletePropAdditional(selectedProp); } }><BsXLg /></p> }
+            {childrenTypes.length === 0 && <p className="selectedProp__delete" onClick={ () => {deletePropAdditional(fullElement); } }><BsXLg /></p> }
             <div className={correctStyle()}>   
                 {selectedProp.types.map(item => {
                         return (

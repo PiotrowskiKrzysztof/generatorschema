@@ -54,7 +54,7 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
         <div className='selectedProp'>
             <p className="selectedProp__icon" onClick={() => setShow(!show)}><BsArrowDown /></p>
             <label>{ element }</label>
-            {childrenTypes.length === 0 && <p className="selectedProp__delete" onClick={ () => {deleteProp(selectedProp); } }><BsXLg /></p> }
+            {childrenTypes.length === 0 && <p className="selectedProp__delete" onClick={ () => {deleteProp(fullElement); } }><BsXLg /></p> }
                 <div className={correctStyle()}>   
                     {selectedProp.types.map(item => {
                          return (
@@ -86,9 +86,14 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
                 </div>
         </div>,
         chosenPropsAdditional.map(e => {
-            // console.log(e);
-            // console.log(element);
-            if(e.startProp === element) {
+            console.log(e);
+            console.log(fullElement);
+            console.log('===============');
+            console.log(e.parent)
+            console.log(fullElement._id.toString());
+            console.log(e.parentID === (fullElement._id).toString())
+            console.log(chosenPropsAdditional);
+            if(e.parentID === (fullElement._id).toString()) {
                 return(
                     <SelectedPropAdditional 
                         element={ element }
@@ -107,31 +112,6 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
                 )
             }
         }),
-        
-        // chosenPropsAdditional.map(e => {
-        //     if(e.parent !== element) {
-        //         return(
-        //             <SelectedPropAdditional 
-        //                 element={ element }
-        //                 thisProp={ e }
-        //                 propsNoNested= {propsNoNested}
-        //                 chosenPropsAdditional={ chosenPropsAdditional }
-        //                 newTypeProp={ newTypeProp }
-        //                 deleteType={ deleteType }
-        //                 fetchMargin={ fetchMargin }
-        //                 deletePropAdditional={ deletePropAdditional }
-        //             />                    
-        //         )
-        //     }
-        // })
-        
-        // <div className='selectedProp'>
-        //     {chosenPropsAdditional !== null && chosenPropsAdditional.map(e => {
-        //         if(e.parent === element) {
-        //             return <p>{e.nameShort} - {e.parent}</p>
-        //         }
-        //     })}
-        // </div>
     ];
 }
 
