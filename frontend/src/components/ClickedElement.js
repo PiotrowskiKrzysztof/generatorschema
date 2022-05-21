@@ -404,6 +404,8 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             case 'N-Triples':
                 element.download = pathElements[pathElements.length - 1] + ".nt";  
                 break;
+            case 'Turtle':
+                element.download = pathElements[pathElements.length - 1] + ".ttl";  
         }
         document.body.appendChild(element);
         element.click();
@@ -414,7 +416,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         let counter = 1;
         let finallString = '';
 
-        finallString += '_:id0 a <https://schema.org/' + pathElements[pathElements.length - 1] + '> .\n';
+        finallString += '_:id0 a https://schema.org/' + pathElements[pathElements.length - 1] + ' .\n';
 
         chosenProps.forEach(function(mainProp) {
             if(mainProp.valueProp === null) {
@@ -424,10 +426,10 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     const index = blankNodes.indexOf(child);                
                     blankNodes[index]['blankNode'] = '_:id' + counter;
                 })              
-                finallString += '_:id0 <' + mainProp.name + '> _:id' + counter + ' .\n';
+                finallString += '_:id0 ' + mainProp.name + ' _:id' + counter + ' .\n';
                 counter++;
             } else {
-                finallString += '_:id0 <' + mainProp.name + '> "' + mainProp.valueProp + '" .\n';
+                finallString += '_:id0 ' + mainProp.name + ' "' + mainProp.valueProp + '" .\n';
             }
             
         })
@@ -435,8 +437,8 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         chosenPropsAdditional.forEach(function(subProp) {
             if(blankNodes.some(el => el.path === subProp.path)) {
                 const tmpObj = blankNodes.find(el => el.path === subProp.path);   
-                if(!finallString.includes(tmpObj.blankNode + ' a <https://schema.org/' + tmpObj.mainType + '> .')) {
-                    finallString += tmpObj.blankNode + ' a <https://schema.org/' + tmpObj.mainType + '> .\n';
+                if(!finallString.includes(tmpObj.blankNode + ' a https://schema.org/' + tmpObj.mainType + ' .')) {
+                    finallString += tmpObj.blankNode + ' a https://schema.org/' + tmpObj.mainType + ' .\n';
                 }
                 if(subProp.valueProp === null) {
                     const childrenProps = chosenPropsAdditional.filter(el => el.path === subProp.path + el.nameShort + ' ');
@@ -445,10 +447,10 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                         const index = blankNodes.indexOf(child);                
                         blankNodes[index]['blankNode'] = '_:id' + counter;
                     })
-                    finallString += tmpObj.blankNode + ' <' + subProp.name + '> _:id' + counter + ' .\n';
+                    finallString += tmpObj.blankNode + ' ' + subProp.name + ' _:id' + counter + ' .\n';
                     counter++;  
                 } else {
-                    finallString += tmpObj.blankNode + ' <' + subProp.name + '> "' + subProp.valueProp + '" .\n';
+                    finallString += tmpObj.blankNode + ' ' + subProp.name + ' "' + subProp.valueProp + '" .\n';
                 }
                 
             }
@@ -535,7 +537,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             <div>
                 <textarea className="finallCode" value={ finallTurtle } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
-                    <button className='generateButton' onClick={ () => saveScript(finallTurtle, 'N-Triples') }>Save As Turtle</button>
+                    <button className='generateButton' onClick={ () => saveScript(finallTurtle, 'Turtle') }>Save As Turtle</button>
                 </div>
             </div>}
 
