@@ -15,6 +15,8 @@ function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectP
         }
     });
 
+    
+
     return(
         <div>
             <div className="addProperty">

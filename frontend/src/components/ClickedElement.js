@@ -101,10 +101,10 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 mainType: type,
                 valueProp: null,
                 path: parentData[0] + ' ' + tmpObj.nameShort + ' '}]);
-        } else if(chosenPropsAdditional.some(el => el.nameShort === parentData[0])) {
-            const index2 = chosenPropsAdditional.findIndex(el => el.nameShort === parentData[0]) + 1;
-            const lastIndex = chosenPropsAdditional.map(el => el.parent === parentData[0]).lastIndexOf(true);
-            const fetchMainProp = chosenPropsAdditional.find(el => el.nameShort === parentData[0]); 
+        } else if(chosenPropsAdditional.some(el => el._id === Number(parentData[1]))) {
+            const index2 = chosenPropsAdditional.findIndex(el => el._id === Number(parentData[1])) + 1;
+            const lastIndex = chosenPropsAdditional.map(el => el._id === Number(parentData[1])).lastIndexOf(true);
+            const fetchMainProp = chosenPropsAdditional.find(el => el._id === Number(parentData[1])); 
             const tmpArr = chosenPropsAdditional;
             if(lastIndex === -1) {
                 tmpArr.splice(index2, 0, {
@@ -153,23 +153,24 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     }
 
     function deleteType(selectedProp, type) {
-        setAdditionalTypes(additionalTypes.filter(e => e.lastChild !== type));
+        console.log(selectedProp);
+        setAdditionalTypes(additionalTypes.filter(e => e._id !== selectedProp._id));
         const tmp = additionalTypesNested;
         const index = tmp.indexOf(tmp.find(e => e.prop === selectedProp.nameShort));
         const index2 = tmp.indexOf(tmp[index].types.find(e => e === type));
         tmp[index].types.splice(index2, 1);
         if(tmp[index].types.length === 0) {
-            setAdditionalTypesNested(additionalTypesNested.filter(e => e.prop !== selectedProp.nameShort));
+            setAdditionalTypesNested(additionalTypesNested.filter(e => e._id !== Number(selectedProp._id)));
         } else {
             setAdditionalTypesNested(tmp);
         }
-        setChosenPropsAdditional(chosenPropsAdditional.filter(e => e.parent !== selectedProp.nameShort));
+        // setAdditionalTypesNested(chosenPropsAdditional.filter(e => e.parent !== selectedProp._id));
     }
 
     function newTypeProp(item, thisProp) {
-        if(additionalTypesNested.some(e => e.prop === thisProp.nameShort)) {
+        if(additionalTypesNested.some(e => e._id === thisProp._id)) {
             const tmpArr = additionalTypesNested;
-            const index = additionalTypesNested.indexOf(additionalTypesNested.find(e => e.prop === thisProp.nameShort));
+            const index = additionalTypesNested.indexOf(additionalTypesNested.find(e => e._id === thisProp._id));
             tmpArr[index].types.push(item);
             setAdditionalTypesNested(tmpArr);
         } else {
@@ -184,10 +185,10 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         while(!tmpArrParents.some(e => e.types === 'Thing' && e.prop === thisProp.nameShort)) {
             let tmpObj = allElements.find(e => e.nameShort === tmpItem);
             if(tmpObj.parent === 'this') {
-                tmpArrParents.push({types: 'Thing', prop: thisProp.nameShort, lastChild: item});
+                tmpArrParents.push({types: 'Thing', prop: thisProp.nameShort, lastChild: item, _id: thisProp._id});
                 tmpItem = tmpObj.parentShort;
             } else {
-                tmpArrParents.push({types: tmpObj.parentShort, prop: thisProp.nameShort, lastChild: item});
+                tmpArrParents.push({types: tmpObj.parentShort, prop: thisProp.nameShort, lastChild: item, _id: thisProp._id});
                 tmpItem = tmpObj.parentShort;
             }               
         }
@@ -240,6 +241,36 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 }
             }
         }
+    }
+
+    function generateJSONLD2() {
+        let finallString = '{\n\t"@context": "https://schema.org/",\n\t"@type": "' + pathElements[pathElements.length - 1] + '",\n';
+        chosenProps.forEach(function(mainProp) {
+            if(mainProp.valueProp !== null) {
+                finallString += '\t"' + mainProp.nameShort + '": "' + mainProp.valueProp + '",\n';
+            } else {
+                finallString += '\t"' + mainProp.nameShort + '": {\n\t},\n';
+            }
+        })
+        chosenPropsAdditional.forEach(function(subProp) {
+            // const wantedElement = '<div property="' + subProp.parent + '" typeof="' + subProp.mainType + '">';
+            const wantedElement = '"' + subProp.nameShort + ': {"';
+            const wantedElementStartIndex = finallString.indexOf(wantedElement)
+            const wantedElementEndIndex =  wantedElementStartIndex + wantedElement.length;
+
+        })
+        console.log(chosenPropsAdditional);
+        finallString += '}';
+        console.log(finallString);
+        setFinalJSONLDnoScript(finallString);
+    }
+
+    function tabulators(margin) {
+        let tmp = '\t';
+        for(let i = 0; i < (margin / 10); i++) {
+            tmp += '\t';
+        }
+        return tmp;
     }
 
     function generateRDFa() {
@@ -361,6 +392,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                             newTypeProp={ newTypeProp }
                             deleteType={ deleteType }
                             fetchMargin={ fetchMargin }
+                            chosenProps={ chosenProps }
                             chosenPropsAdditional={ chosenPropsAdditional }
                             deletePropAdditional={ deletePropAdditional }
                             additionalTypes={ additionalTypes }
@@ -377,6 +409,8 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 usedTypes={ usedTypes }
             />
             {additionalTypesNested.map(element => {
+                console.log(additionalTypesNested);
+                console.log(additionalTypes);
                     return(
                         <SelectAdditionalTypes
                             key={ element._id }
@@ -391,7 +425,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 })
             }
             <h1>Generate Code</h1>
-            {finallJSONLD !== '' && 
+            {finallJSONLDnoScript !== '' && 
             <div>
                 <textarea className="finallCode" value={ finallJSONLDnoScript } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
@@ -415,7 +449,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             </div>}
 
             <div className='finallButtonsContainer'>
-                <button className='customButton' onClick={ generateJSONLD }>Generate JSON-LD</button>
+                <button className='customButton' onClick={ generateJSONLD2 }>Generate JSON-LD</button>
                 <button className='customButton' onClick={ generateRDFa }>Generate RDFa</button>
                 <button className='customButton' onClick={ generateNTriples }>Generate N-Triples</button>
             </div>

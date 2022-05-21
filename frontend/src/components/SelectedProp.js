@@ -5,7 +5,7 @@ import { BsArrowDown, BsXLg } from 'react-icons/bs';
 import SelectedPropAdditional from './SelectedPropAdditional';
 
 
-function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteType, fetchMargin, chosenPropsAdditional, deletePropAdditional, additionalTypes, handleValueProp, fullElement, resetValueProp }) {
+function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteType, fetchMargin, chosenProps, chosenPropsAdditional, deletePropAdditional, additionalTypes, handleValueProp, fullElement, resetValueProp }) {
     
     const selectedProp = propsNoNested.find(e => e.nameShort === element);
     const [show, setShow] = useState(true);
@@ -69,6 +69,7 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
                                 selectedProp={ selectedProp }
                                 deleteType={ deleteType }
                                 additionalTypes={ additionalTypes }
+                                chosenProps={ chosenProps }
                                 chosenPropsAdditional={ chosenPropsAdditional }
                                 handleValueProp={ handleValueProp }
                                 fullElement={ fullElement }
@@ -98,6 +99,7 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
                         element={ element }
                         thisProp={ e }
                         propsNoNested= {propsNoNested}
+                        chosenProps={ chosenProps }
                         chosenPropsAdditional={ chosenPropsAdditional }
                         newTypeProp={ newTypeProp }
                         deleteType={ deleteType }

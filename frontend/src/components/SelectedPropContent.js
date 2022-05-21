@@ -3,7 +3,7 @@ import '../styles/SelectedPropContent.css';
 import { BsXLg } from 'react-icons/bs';
 
 
-function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin, fetchMargin, addChildrenTypes, deleteChildrenTypes, selectedProp, deleteType, additionalTypes, chosenPropsAdditional, handleValueProp, fullElement, blockInputs, handleBlockInuts, notBlockedTypes, changeNotBlockedTypes, resetValueProp }) {
+function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin, fetchMargin, addChildrenTypes, deleteChildrenTypes, selectedProp, deleteType, additionalTypes, chosenProps, chosenPropsAdditional, handleValueProp, fullElement, blockInputs, handleBlockInuts, notBlockedTypes, changeNotBlockedTypes, resetValueProp }) {
 
     const [valueNumber, setValueNumber] = useState(0);
     const [valueFloat, setValueFloat] = useState(0);
@@ -49,7 +49,7 @@ function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin
     }
     
     useEffect(() => {        
-            if(chosenPropsAdditional.some(e => e.parent === thisProp)) setCanDeleteType(false);
+            if(chosenPropsAdditional.some(e => Number(e.parentID) === fullElement._id)) setCanDeleteType(false);
             else setCanDeleteType(true);
     }) 
 
@@ -145,7 +145,7 @@ function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin
             <div className='selectedProp__context'>
                 <p>{ item }</p>                
                 {(notBlockedTypes.some(e => e === item)) ? (!addedNewType ? <p className="buttonNewTypeProp" onClick={ () => { newTypeProp(item, fullElement); setAddedNewType(true); changeMargin(); fetchMargin(margin, thisProp); addChildrenTypes(item); handleBlockInuts(true); changeNotBlockedTypes(item); resetValueProp(fullElement); } }>Add Type</p>
-                : canDeleteType ? <p className="typeAdded">Type added <BsXLg onClick={ () => {deleteChildrenTypes(item); setAddedNewType(!addedNewType); deleteType(selectedProp, item); handleBlockInuts(false); changeNotBlockedTypes(selectedProp.types)}} /></p>
+                : canDeleteType ? <p className="typeAdded">Type added <BsXLg onClick={ () => {deleteChildrenTypes(item); setAddedNewType(!addedNewType); deleteType(fullElement, item); handleBlockInuts(false); changeNotBlockedTypes(selectedProp.types)}} /></p>
                 : <p className="typeAdded">Type added</p>) : <p className="typeAdded">You added other type</p>}
             </div>
         )
