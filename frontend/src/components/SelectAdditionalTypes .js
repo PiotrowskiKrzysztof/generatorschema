@@ -18,7 +18,7 @@ function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectP
         <div>
             <div className="addProperty">
                 <p className='propertyText'>Add property to { thisProp.nameShort }:</p>
-                <select name={ thisProp.nameShort + ' ' + idElement } onChange={ selectPropAdditional } defaultValue='empty'>
+                <select name={ thisProp.nameShort + ' ' + idElement } onChange={ selectPropAdditional } value='empty'>
                     <option value='empty' disabled hidden>Select property</option>
                     {
                             arrayUniqueByKey.map(element => {

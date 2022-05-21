@@ -11,7 +11,7 @@ function SelectMainTypes({ allElements, selectProp, usedTypes }) {
         <div>
             <div className="addProperty">
                 <p className='propertyText'>Add property to {usedTypes[usedTypes.length - 1].nameShort}:</p>
-                <select onChange={selectProp} defaultValue={'emptyMainTypes'}>
+                <select onChange={selectProp} value='emptyMainTypes'>
                     <option value='emptyMainTypes' disabled hidden>Select property</option>
                     <optgroup label='--- Properties from Thing ---'>
                         {allElements[allElements.indexOf(allElements.find(e => e.nameShort === 'Thing'))].properties.map( (element, index) => {
