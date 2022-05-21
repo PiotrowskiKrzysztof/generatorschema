@@ -23,6 +23,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     const [finallJSONLDnoScript, setFinalJSONLDnoScript] = useState('');
     const [finallRDFa, setFinallRDFa] = useState('');
     const [finallNTriples, setFinalNTriples] = useState('');
+    const [finallTurtle, setFinallTurtle] = useState('');
 
     const generateChildList = subObjects.map(element =>
         <li key={ element.nameShort } >{ element.nameShort }</li>
@@ -286,7 +287,9 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             }
         })
         finallString += '}';
+        const finallStringWithScripts = '<script type="application/ld+json">\n' + finallString + '\n</script>';
         setFinalJSONLDnoScript(finallString);
+        setFinalJSONLD(finallStringWithScripts);
     }
 
     function tabulators(margin) {
@@ -406,6 +409,55 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         element.click();
     }
 
+    function generateTurtle() {
+        const blankNodes = [];
+        let counter = 1;
+        let finallString = '';
+
+        finallString += '_:id0 a <https://schema.org/' + pathElements[pathElements.length - 1] + '> .\n';
+
+        chosenProps.forEach(function(mainProp) {
+            if(mainProp.valueProp === null) {
+                const childrenProps = chosenPropsAdditional.filter(el => el.path === mainProp.nameShort + ' ' + el.nameShort + ' ');
+                childrenProps.forEach(function(child) {
+                    blankNodes.push(child);
+                    const index = blankNodes.indexOf(child);                
+                    blankNodes[index]['blankNode'] = '_:id' + counter;
+                })              
+                finallString += '_:id0 <' + mainProp.name + '> _:id' + counter + ' .\n';
+                counter++;
+            } else {
+                finallString += '_:id0 <' + mainProp.name + '> "' + mainProp.valueProp + '" .\n';
+            }
+            
+        })
+
+        chosenPropsAdditional.forEach(function(subProp) {
+            if(blankNodes.some(el => el.path === subProp.path)) {
+                const tmpObj = blankNodes.find(el => el.path === subProp.path);   
+                if(!finallString.includes(tmpObj.blankNode + ' a <https://schema.org/' + tmpObj.mainType + '> .')) {
+                    finallString += tmpObj.blankNode + ' a <https://schema.org/' + tmpObj.mainType + '> .\n';
+                }
+                if(subProp.valueProp === null) {
+                    const childrenProps = chosenPropsAdditional.filter(el => el.path === subProp.path + el.nameShort + ' ');
+                    childrenProps.forEach(function(child){
+                        blankNodes.push(child);
+                        const index = blankNodes.indexOf(child);                
+                        blankNodes[index]['blankNode'] = '_:id' + counter;
+                    })
+                    finallString += tmpObj.blankNode + ' <' + subProp.name + '> _:id' + counter + ' .\n';
+                    counter++;  
+                } else {
+                    finallString += tmpObj.blankNode + ' <' + subProp.name + '> "' + subProp.valueProp + '" .\n';
+                }
+                
+            }
+        })
+        finallString = finallString.replace(/https:\/\/schema.org\//g, 's:');
+        finallString = '@prefix s: <https://schema.org/> .\n' + finallString;
+        setFinallTurtle(finallString);
+    }
+
     return(
         <div>
             <h1>{ selectedObject.nameShort }</h1>
@@ -479,11 +531,19 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     <button className='generateButton' onClick={ () => saveScript(finallNTriples, 'N-Triples') }>Save As N-Triples</button>
                 </div>
             </div>}
+            {finallTurtle !== '' &&
+            <div>
+                <textarea className="finallCode" value={ finallTurtle } readOnly='true' spellCheck='false'></textarea>
+                <div className="generateButtonContainer">
+                    <button className='generateButton' onClick={ () => saveScript(finallTurtle, 'N-Triples') }>Save As Turtle</button>
+                </div>
+            </div>}
 
             <div className='finallButtonsContainer'>
                 <button className='customButton' onClick={ generateJSONLD2 }>Generate JSON-LD</button>
                 <button className='customButton' onClick={ generateRDFa }>Generate RDFa</button>
                 <button className='customButton' onClick={ generateNTriples }>Generate N-Triples</button>
+                <button className='customButton' onClick={ generateTurtle }>Generate Turtle</button>
             </div>
         </div>
     );
