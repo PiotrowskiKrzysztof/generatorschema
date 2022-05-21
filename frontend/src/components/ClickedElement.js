@@ -164,7 +164,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         } else {
             setAdditionalTypesNested(tmp);
         }
-        // setAdditionalTypesNested(chosenPropsAdditional.filter(e => e.parent !== selectedProp._id));
     }
 
     function newTypeProp(item, thisProp) {
@@ -245,20 +244,71 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
 
     function generateJSONLD2() {
         let finallString = '{\n\t"@context": "https://schema.org/",\n\t"@type": "' + pathElements[pathElements.length - 1] + '",\n';
-        chosenProps.forEach(function(mainProp) {
-            if(mainProp.valueProp !== null) {
-                finallString += '\t"' + mainProp.nameShort + '": "' + mainProp.valueProp + '",\n';
+        const maxIndexMainProps = chosenProps.length - 1;
+        chosenProps.forEach(function(mainProp, index) {
+            if(index !== maxIndexMainProps) {
+                // dodaje przecinek na końcu obiektu
+                if(mainProp.valueProp !== null) {
+                    finallString += '\t"' + mainProp.nameShort + '": "' + mainProp.valueProp + '",\n';
+                } else {
+                    finallString += '\t"' + mainProp.nameShort + '" ' + mainProp._id + ': {\n\t},\n';
+                }
             } else {
-                finallString += '\t"' + mainProp.nameShort + '": {\n\t},\n';
+                // ostatni obiekt, bez przecinka
+                if(mainProp.valueProp !== null) {
+                    finallString += '\t"' + mainProp.nameShort + '": "' + mainProp.valueProp + '"\n';
+                } else {
+                    finallString += '\t"' + mainProp.nameShort + '" ' + mainProp._id + ': {\n\t}\n';
+                }
             }
         })
         chosenPropsAdditional.forEach(function(subProp) {
-            // const wantedElement = '<div property="' + subProp.parent + '" typeof="' + subProp.mainType + '">';
-            const wantedElement = '"' + subProp.nameShort + ': {"';
+            const arrayElementsWithTheSameParent = chosenPropsAdditional.filter(e => e.parentID === subProp.parentID);
+            const maxIndexSubProps = arrayElementsWithTheSameParent.length - 1;
+            const currentIndexSubProp = arrayElementsWithTheSameParent.indexOf(subProp);
+            
+            console.log(currentIndexSubProp);
+            const wantedElement = '"' + subProp.parent + '" ' + subProp.parentID + ': {';
             const wantedElementStartIndex = finallString.indexOf(wantedElement)
             const wantedElementEndIndex =  wantedElementStartIndex + wantedElement.length;
+            console.log(wantedElementStartIndex);
+            console.log(wantedElementEndIndex);
+
+            if(!finallString.includes('"@type" ' + subProp.parentID + ': ' + '"' + subProp.mainType + '"')) {
+                const typeElementToAdd = '\n' + tabulators(subProp.margin) + '"@type" ' + subProp.parentID + ': ' + '"' + subProp.mainType + '"';
+                console.log(wantedElement);
+                console.log(typeElementToAdd);
+                finallString = finallString.substring(0, wantedElementEndIndex) + typeElementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
+            }
+
+            console.log(subProp);
+            console.log(arrayElementsWithTheSameParent);
+            if(wantedElementStartIndex !== -1) {
+                if(subProp.valueProp === null || subProp.valueProp === undefined) {                    
+                    const elementToAdd = '\n' + tabulators(subProp.margin) + '"' + subProp.nameShort + '" ' + subProp._id + ': {\n' + tabulators(subProp.margin) + '},';
+                    finallString = finallString.substring(0, wantedElementEndIndex) + elementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
+                } else {
+                    const elementToAdd = '\n' + tabulators(subProp.margin) + '"' + subProp.nameShort + '": "' + subProp.valueProp + '",';
+                    finallString = finallString.substring(0, wantedElementEndIndex) + elementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
+                }
+            }
 
         })
+        chosenProps.forEach(function(mainProp) {
+            if(finallString.includes(mainProp._id + ':')) {
+                finallString = finallString.replace(' ' + mainProp._id + ':', ':');
+            }
+        })
+        chosenPropsAdditional.forEach(function(subProp) {
+            if(finallString.includes(subProp.parentID + ':')) {
+                finallString = finallString.replace(' ' + subProp.parentID + ':', ':');
+            }
+            if(finallString.includes(subProp._id + ':')) {
+                finallString = finallString.replace(' ' + subProp._id + ':', ':');
+            }
+        })
+
+        console.log(chosenProps);
         console.log(chosenPropsAdditional);
         finallString += '}';
         console.log(finallString);
@@ -275,30 +325,30 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
 
     function generateRDFa() {
         let finallString = '';
-        finallString += '<div vocab="https://schema.org/" typeof="' + pathElements[pathElements.length - 1] + '">';
+        finallString += '<div vocab="https://schema.org/" typeof="' + pathElements[pathElements.length - 1] + '">\n';
         chosenProps.forEach(function(mainProp) {
             let actualPath = mainProp.nameShort + ' ';            
             if(mainProp.valueProp !== null) {
-                finallString += '<span property="' + mainProp.nameShort + '">' + mainProp.valueProp + '</span>'
+                finallString += '\t<span property="' + mainProp.nameShort + '">' + mainProp.valueProp + '</span>\n'
             } else {
                 const subProp = chosenPropsAdditional.find(el => el.path === actualPath + el.nameShort + ' ');
                 if(subProp !== undefined) {
-                    finallString += '<div property="' + mainProp.nameShort + '" typeof="' + subProp.mainType + '"></div>';
+                    finallString += '\t<div property="' + mainProp.nameShort + '" typeof="' + subProp.mainType + '">\n\t</div>\n';
                 }
             }
         })
         finallString += '</div>';
         chosenPropsAdditional.forEach(function(subProp, index) {
-            const wantedElement = '<div property="' + subProp.parent + '" typeof="' + subProp.mainType + '">';
+            const wantedElement = '<div property="' + subProp.parent + '" typeof="' + subProp.mainType + '">\n';
             const wantedElementStartIndex = finallString.indexOf(wantedElement)
             const wantedElementEndIndex =  wantedElementStartIndex + wantedElement.length;
             
             if(wantedElementStartIndex !== -1) {
                 if(subProp.valueProp === null || subProp.valueProp === undefined) {
-                    const elementToAdd = '<div property="' + subProp.nameShort + '" typeof="' + chosenPropsAdditional[index + 1].mainType + '"></div>';
+                    const elementToAdd = tabulators(subProp.margin) + '<div property="' + subProp.nameShort + '" typeof="' + chosenPropsAdditional[index + 1].mainType + '">\n' + tabulators(subProp.margin) + '</div>\n';
                     finallString = finallString.substring(0, wantedElementEndIndex) + elementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
                 } else {
-                    const elementToAdd = '<span property="' + subProp.nameShort + '">' + subProp.valueProp + '</span>'
+                    const elementToAdd = tabulators(subProp.margin) + '<span property="' + subProp.nameShort + '">' + subProp.valueProp + '</span>\n'
                     finallString = finallString.substring(0, wantedElementEndIndex) + elementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
                 }
             }

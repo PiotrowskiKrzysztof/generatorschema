@@ -85,13 +85,6 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
                 </div>
         </div>,
         chosenPropsAdditional.map(e => {
-            // console.log(e);
-            // console.log(fullElement);
-            // console.log('===============');
-            // console.log(e.parent)
-            // console.log(fullElement._id.toString());
-            // console.log(e.parentID === (fullElement._id).toString())
-            // console.log(chosenPropsAdditional);
             if(e.startPropID === (fullElement._id).toString()) {
                 return(
                     <SelectedPropAdditional
