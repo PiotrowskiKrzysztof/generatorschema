@@ -58,11 +58,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             const indexObj = chosenProps.findIndex(el => el._id === Number(handleObjData[2]));
             chosenProps[indexObj].valueProp = value;
         } else {
-            console.log(handleObjData);
             const indexObj = chosenPropsAdditional.findIndex(el => el._id === Number(handleObjData[2]));
-            // console.log(indexObj);
-            console.log(chosenPropsAdditional);
-            // console.log(chosenProps);
             chosenPropsAdditional[indexObj].valueProp = value;
         };
     }
@@ -81,10 +77,8 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     function selectPropAdditional(e) {
         const tmpParentData = e.target.name;
         const parentData = tmpParentData.split(' ');
-        console.log(parentData);
         const tmpObj = propsNoNested.find(element => element.nameShort === e.target.value);
         const index = chosenPropsAdditional.indexOf(chosenPropsAdditional.find(el => el._id === Number(parentData[1])));
-        console.log('>>>>>>>>>>> ' + index);
         const indexx = e.target.selectedIndex;
         const thisString = e.target[indexx].outerHTML;
         const type = thisString.slice(thisString.indexOf('"'), thisString.lastIndexOf('"')).substring(1);        
@@ -153,7 +147,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     }
 
     function deleteType(selectedProp, type) {
-        console.log(selectedProp);
         setAdditionalTypes(additionalTypes.filter(e => e._id !== selectedProp._id));
         const tmp = additionalTypesNested;
         const index = tmp.indexOf(tmp.find(e => e.prop === selectedProp.nameShort));
@@ -247,14 +240,12 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         const maxIndexMainProps = chosenProps.length - 1;
         chosenProps.forEach(function(mainProp, index) {
             if(index !== maxIndexMainProps) {
-                // dodaje przecinek na końcu obiektu
                 if(mainProp.valueProp !== null) {
                     finallString += '\t"' + mainProp.nameShort + '": "' + mainProp.valueProp + '",\n';
                 } else {
                     finallString += '\t"' + mainProp.nameShort + '" ' + mainProp._id + ': {\n\t},\n';
                 }
             } else {
-                // ostatni obiekt, bez przecinka
                 if(mainProp.valueProp !== null) {
                     finallString += '\t"' + mainProp.nameShort + '": "' + mainProp.valueProp + '"\n';
                 } else {
@@ -263,26 +254,13 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             }
         })
         chosenPropsAdditional.forEach(function(subProp) {
-            const arrayElementsWithTheSameParent = chosenPropsAdditional.filter(e => e.parentID === subProp.parentID);
-            const maxIndexSubProps = arrayElementsWithTheSameParent.length - 1;
-            const currentIndexSubProp = arrayElementsWithTheSameParent.indexOf(subProp);
-            
-            console.log(currentIndexSubProp);
             const wantedElement = '"' + subProp.parent + '" ' + subProp.parentID + ': {';
             const wantedElementStartIndex = finallString.indexOf(wantedElement)
             const wantedElementEndIndex =  wantedElementStartIndex + wantedElement.length;
-            console.log(wantedElementStartIndex);
-            console.log(wantedElementEndIndex);
-
             if(!finallString.includes('"@type" ' + subProp.parentID + ': ' + '"' + subProp.mainType + '"')) {
                 const typeElementToAdd = '\n' + tabulators(subProp.margin) + '"@type" ' + subProp.parentID + ': ' + '"' + subProp.mainType + '"';
-                console.log(wantedElement);
-                console.log(typeElementToAdd);
                 finallString = finallString.substring(0, wantedElementEndIndex) + typeElementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
             }
-
-            console.log(subProp);
-            console.log(arrayElementsWithTheSameParent);
             if(wantedElementStartIndex !== -1) {
                 if(subProp.valueProp === null || subProp.valueProp === undefined) {                    
                     const elementToAdd = '\n' + tabulators(subProp.margin) + '"' + subProp.nameShort + '" ' + subProp._id + ': {\n' + tabulators(subProp.margin) + '},';
@@ -307,11 +285,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 finallString = finallString.replace(' ' + subProp._id + ':', ':');
             }
         })
-
-        console.log(chosenProps);
-        console.log(chosenPropsAdditional);
         finallString += '}';
-        console.log(finallString);
         setFinalJSONLDnoScript(finallString);
     }
 
@@ -469,8 +443,6 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 usedTypes={ usedTypes }
             />
             {additionalTypesNested.map(element => {
-                console.log(additionalTypesNested);
-                console.log(additionalTypes);
                     return(
                         <SelectAdditionalTypes
                             key={ element._id }

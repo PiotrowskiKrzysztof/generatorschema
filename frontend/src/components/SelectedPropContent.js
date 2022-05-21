@@ -49,11 +49,6 @@ function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin
     }
     
     useEffect(() => {        
-            console.log(chosenPropsAdditional);
-            console.log(chosenProps);
-            console.log(fullElement);
-            console.log(thisProp);
-            console.log((chosenPropsAdditional.some(e => Number(e.parentID) === fullElement._id)));
             if(chosenPropsAdditional.some(e => Number(e.parentID) === fullElement._id)) setCanDeleteType(false);
             else setCanDeleteType(true);
     }) 
