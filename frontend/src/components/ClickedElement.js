@@ -333,24 +333,34 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             } else {
                 const subProp = chosenPropsAdditional.find(el => el.path === actualPath + el.nameShort + ' ');
                 if(subProp !== undefined) {
-                    finallString += '\t<div property="' + mainProp.nameShort + '" typeof="' + subProp.mainType + '">\n\t</div>\n';
+                    finallString += '\t<div ' + mainProp._id + ' property="' + mainProp.nameShort + '" typeof="' + subProp.mainType + '">\n\t</div>\n';
                 }
             }
         })
         finallString += '</div>';
         chosenPropsAdditional.forEach(function(subProp, index) {
-            const wantedElement = '<div property="' + subProp.parent + '" typeof="' + subProp.mainType + '">\n';
+            const wantedElement = '<div ' + subProp.parentID + ' property="' + subProp.parent + '" typeof="' + subProp.mainType + '">\n';
             const wantedElementStartIndex = finallString.indexOf(wantedElement)
             const wantedElementEndIndex =  wantedElementStartIndex + wantedElement.length;
             
             if(wantedElementStartIndex !== -1) {
                 if(subProp.valueProp === null || subProp.valueProp === undefined) {
-                    const elementToAdd = tabulators(subProp.margin) + '<div property="' + subProp.nameShort + '" typeof="' + chosenPropsAdditional[index + 1].mainType + '">\n' + tabulators(subProp.margin) + '</div>\n';
+                    const elementToAdd = tabulators(subProp.margin) + '<div ' + subProp._id + ' property="' + subProp.nameShort + '" typeof="' + chosenPropsAdditional[index + 1].mainType + '">\n' + tabulators(subProp.margin) + '</div>\n';
                     finallString = finallString.substring(0, wantedElementEndIndex) + elementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
                 } else {
                     const elementToAdd = tabulators(subProp.margin) + '<span property="' + subProp.nameShort + '">' + subProp.valueProp + '</span>\n'
                     finallString = finallString.substring(0, wantedElementEndIndex) + elementToAdd + finallString.substring(wantedElementEndIndex, finallString.length);
                 }
+            }
+        })
+        chosenProps.forEach(function(mainProp) {
+            if(finallString.includes(mainProp._id)) {
+                finallString = finallString.replace(' ' + mainProp._id, '');
+            }
+        })
+        chosenPropsAdditional.forEach(function(subProp) {
+            if(finallString.includes(subProp._id)) {
+                finallString = finallString.replace(' ' + subProp._id, '');
             }
         })        
         setFinallRDFa(finallString);

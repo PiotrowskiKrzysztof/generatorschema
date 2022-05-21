@@ -6,16 +6,13 @@ import SelectTypesOptions from "./SelectTypesOptions";
 function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectPropAdditional, additionalTypes, idElement }) {
     
     const thisProp = propsNoNested.find(item => item.nameShort === prop);
-    const uniqueTypes = [...new Set(additionalTypes.map(item => item.types))];
     
     const arrayUniqueByKey = [];
     additionalTypes.forEach(element => {
-        if(!arrayUniqueByKey.some(e => e === element)) {
+        if(element._id === idElement) {
             arrayUniqueByKey.push(element);
         }
     });
-
-    
 
     return(
         <div>
