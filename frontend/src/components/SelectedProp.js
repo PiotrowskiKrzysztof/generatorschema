@@ -57,7 +57,7 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
                     {selectedProp.types.map(item => {
                          return (
                             <SelectedPropContent
-                                key={ item }
+                                key={ element._id + item }
                                 item={ item }
                                 newTypeProp={ newTypeProp }
                                 changeMargin={ changeMargin }
@@ -93,7 +93,8 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
             // console.log(chosenPropsAdditional);
             if(e.startPropID === (fullElement._id).toString()) {
                 return(
-                    <SelectedPropAdditional 
+                    <SelectedPropAdditional
+                        key={ e._id + element } 
                         element={ element }
                         thisProp={ e }
                         propsNoNested= {propsNoNested}

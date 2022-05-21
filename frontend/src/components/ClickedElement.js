@@ -107,7 +107,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             const fetchMainProp = chosenPropsAdditional.find(el => el.nameShort === parentData[0]); 
             const tmpArr = chosenPropsAdditional;
             if(lastIndex === -1) {
-                tmpArr.splice(index2 + 1, 0, {
+                tmpArr.splice(index2, 0, {
                     name: tmpObj.name,
                     nameShort: tmpObj.nameShort,
                     _id: Math.floor((Math.random() * 999999999999) + 1),
@@ -354,7 +354,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 {chosenProps.map((element, index) => {
                     return( 
                         <SelectedProp 
-                            key={ element.nameShort + index }
+                            key={ element._id }
                             element={ element.nameShort }
                             propsNoNested={ propsNoNested }
                             deleteProp={ deleteProp }
@@ -379,7 +379,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             {additionalTypesNested.map(element => {
                     return(
                         <SelectAdditionalTypes
-                            key={ element.prop }
+                            key={ element._id }
                             allElements={ allElements } 
                             propsNoNested={ propsNoNested }
                             prop={ element.prop }
