@@ -37,6 +37,9 @@ $invalidColor2: #870000;
     &::-webkit-scrollbar-thumb {
         background-color: $pinkColor;
     }
+    &:hover {
+        filter: brightness(120%);
+    }
 }
 
 @mixin selectContainer($size) {

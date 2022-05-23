@@ -1,17 +1,4 @@
 @charset "UTF-8";
-@-webkit-keyframes buttonHover {
-  to {
-    background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
-    border-radius: 5px;
-  }
-}
-@keyframes buttonHover {
-  to {
-    background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
-    border-radius: 5px;
-  }
-}
-
 .selectContainer {
   position: relative;
   width: 100%;
@@ -62,5 +49,10 @@
 
 .selectContainer .customSelect::-webkit-scrollbar-thumb {
   background-color: #FF53A5;
+}
+
+.selectContainer .customSelect:hover {
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
 /*# sourceMappingURL=GeneratorSelect.css.map */

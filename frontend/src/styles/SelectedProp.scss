@@ -35,6 +35,9 @@
     .selectedProp__icon {
         grid-column: 1;
         cursor: pointer;
+        &:hover {
+            filter: brightness(120%);
+        }
     }
 
     label {
@@ -46,6 +49,9 @@
         grid-column: 3;
         cursor: pointer; 
         text-align: right;
+        &:hover {
+            filter: brightness(120%);
+        }
     }
 
     .hide {

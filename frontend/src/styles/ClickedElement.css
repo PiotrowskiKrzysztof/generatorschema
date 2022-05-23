@@ -70,6 +70,11 @@
   background-color: #FF53A5;
 }
 
+.addProperty .selectContainer select:hover {
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+}
+
 .addProperty .propertyText {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
