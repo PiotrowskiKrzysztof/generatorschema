@@ -75,7 +75,7 @@ class Generator extends React.Component {
     render() {     
         return(
             <div className="container">
-                <h1>Select type</h1>    
+                <h2>Select type</h2>    
                 <p>{this.state.selectedElement}</p>
                 <div>
                     <GeneratorSelect 
@@ -101,8 +101,7 @@ class Generator extends React.Component {
                             propsNoNested = { this.state.allPropsNoNested }
                         />
                     }
-                </div>
-                <Footer />                                   
+                </div>                                   
             </div>
         );
     }

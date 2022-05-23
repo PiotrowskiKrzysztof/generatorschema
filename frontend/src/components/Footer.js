@@ -8,7 +8,7 @@ function Footer() {
         <div className="absoluteContainer">
             <div className="footerContainer">
                 <p>&copy; 2022 Krzysztof Piotrowski</p>
-                <Logo width='180'/>
+                {/* <Logo width='180'/> */}
             </div>
         </div>
     );
