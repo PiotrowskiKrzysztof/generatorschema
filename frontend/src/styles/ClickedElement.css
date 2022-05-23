@@ -55,6 +55,7 @@
   border-bottom: 1px solid;
   border-image-slice: 1;
   border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
+  scrollbar-width: thin;
 }
 
 .addProperty .selectContainer select::-webkit-scrollbar {
@@ -194,6 +195,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin: 10px 0;
 }
 
 .containerTitleCode .icon {
@@ -211,6 +213,11 @@ a {
   background-clip: text;
   color: transparent;
   text-decoration: none;
+}
+
+a:hover {
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
 
 @media (max-width: 992px) {

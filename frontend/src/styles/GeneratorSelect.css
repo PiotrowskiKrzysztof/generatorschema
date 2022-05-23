@@ -36,6 +36,7 @@
   border-bottom: 1px solid;
   border-image-slice: 1;
   border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
+  scrollbar-width: thin;
 }
 
 .selectContainer .customSelect::-webkit-scrollbar {

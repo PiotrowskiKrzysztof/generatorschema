@@ -471,13 +471,13 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
 
     return(
         <div>
-            <h1>{ selectedObject.nameShort }</h1>
+            <h2>{ selectedObject.nameShort }</h2>
             <a href={ selectedObject.name }>URL: { selectedObject.name }</a>
             <p>{ path }</p>
             <ul className="customUL">
                 {generateChildList}
             </ul>
-            <h1>Properties</h1>
+            <h2>Properties</h2>
             <form>
                 {chosenProps.map((element, index) => {
                     return( 
@@ -519,11 +519,11 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     )
                 })
             }
-            <h1>Generate Code</h1>
+            <h2>Generate Code</h2>
             {showJSONLD && 
             <div>
                 <div className="containerTitleCode">
-                    <h3>JSON-LD</h3>
+                    <label for='jsonld'>JSON-LD</label>
                     <svg height='0' width='0'>
                         <defs>
                             <linearGradient id="gradientDeleteBtn">
@@ -534,7 +534,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     </svg>
                     <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowJSONLD(false) } className='icon'/>
                 </div>
-                <textarea className="finallCode" value={ finallJSONLDnoScript } readOnly='true' spellCheck='false'></textarea>
+                <textarea id='jsonld' name='jsonld' className="finallCode" value={ finallJSONLDnoScript } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallJSONLD, 'json-ld') }>Save As JSON-LD Script</button>
                     <button className='generateButton' onClick={ () => saveScript(finallJSONLDnoScript, 'json-ld') }>Save As JSON-LD NoScript</button>
@@ -543,7 +543,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             {showRDFa &&
             <div>
                 <div className="containerTitleCode">
-                    <h3>RDFa</h3>
+                    <label for='rdfa'>RDFa</label>
                     <svg height='0' width='0'>
                         <defs>
                             <linearGradient id="gradientDeleteBtn">
@@ -554,7 +554,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     </svg>
                     <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowRDFa(false) } className='icon'/>
                 </div>
-                <textarea className="finallCode" value={ finallRDFa } readOnly='true' spellCheck='false'></textarea>
+                <textarea id='rdfa' name='rdfa' className="finallCode" value={ finallRDFa } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallRDFa, 'RDFa') }>Save As RDFa</button>
                 </div>
@@ -562,7 +562,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             {showNTriples &&
             <div>
                 <div className="containerTitleCode">
-                    <h3>N-Triples</h3>
+                    <label for='ntriples'>N-Triples</label>
                     <svg height='0' width='0'>
                         <defs>
                             <linearGradient id="gradientDeleteBtn">
@@ -573,7 +573,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     </svg>
                     <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowNTriples(false) } className='icon'/>
                 </div>
-                <textarea className="finallCode" value={ finallNTriples } readOnly='true' spellCheck='false'></textarea>
+                <textarea id='ntriples' name='ntriples' className="finallCode" value={ finallNTriples } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallNTriples, 'N-Triples') }>Save As N-Triples</button>
                 </div>
@@ -581,7 +581,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             {showTurtle &&
             <div>
                 <div className="containerTitleCode">
-                    <h3>Turtle</h3>
+                    <label for='turtle'>Turtle</label>
                     <svg height='0' width='0'>
                         <defs>
                             <linearGradient id="gradientDeleteBtn">
@@ -592,7 +592,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                     </svg>
                     <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowTurtle(false) } className='icon'/>
                 </div>
-                <textarea className="finallCode" value={ finallTurtle } readOnly='true' spellCheck='false'></textarea>
+                <textarea id='turtle' name='turtle' className="finallCode" value={ finallTurtle } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallTurtle, 'Turtle') }>Save As Turtle</button>
                 </div>

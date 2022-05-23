@@ -4,5 +4,6 @@
     @include selectContainer(100%);
     .customSelect {
         @include selectStyle(100%);
+        scrollbar-width: thin;
     }
 }

@@ -1,4 +1,4 @@
-.fixedContainer {
+.fullWidthContainer {
   width: 100%;
   border: 0;
   border-bottom: 1px solid;
@@ -6,7 +6,7 @@
   border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
 }
 
-.fixedContainer .headerContainer {
+.fullWidthContainer .headerContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -21,7 +21,7 @@
   margin-right: auto;
 }
 
-.fixedContainer .headerContainer button {
+.fullWidthContainer .headerContainer button {
   background-color: transparent;
   border: 0;
   color: #fff;
@@ -29,12 +29,12 @@
   cursor: pointer;
 }
 
-.fixedContainer .headerContainer button:hover {
+.fullWidthContainer .headerContainer button:hover {
   -webkit-filter: brightness(120%);
           filter: brightness(120%);
 }
 
-.fixedContainer .headerContainer .selected {
+.fullWidthContainer .headerContainer .selected {
   font-weight: 700;
   background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
   background-clip: text;
