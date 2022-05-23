@@ -9,6 +9,7 @@ function GeneratorSelectNext({ allElements, currentElement, selectedElement, dee
     }
 
     return(
+    <div className="selectContainer">
         <select onChange={selectedElement} className='customSelect' defaultValue='empty'>
             <option deeph={ deeph } value='empty' disabled={true} >Select type</option>
             {allElements.map(element => {                    
@@ -19,6 +20,7 @@ function GeneratorSelectNext({ allElements, currentElement, selectedElement, dee
                 }
             })}
         </select>
+    </div>
     );
 }
 

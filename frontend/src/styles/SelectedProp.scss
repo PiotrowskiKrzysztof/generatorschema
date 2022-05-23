@@ -4,10 +4,29 @@
     box-sizing: border-box;
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid $blackColor;
-    border-radius: 5px;
+    // border: 1px solid $blackColor;
+    // border: 1px solid;
+    position: relative;
+    background: linear-gradient(45deg, $blackColor, $blackColor); 
+    color: $whiteColor;
+    border: 0;
     display: grid;
     grid-template-columns: 40px auto 40px;
+    z-index: 10;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 5px; 
+        padding: 1px; 
+        background: linear-gradient(45deg, $pinkColor, $blueColor); 
+        -webkit-mask: 
+            linear-gradient($blackColor 0 0) content-box, 
+            linear-gradient($blackColor 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;  
+        z-index: -1;
+    }
 
     .selectedProp__icon {
         grid-column: 1;
@@ -32,6 +51,5 @@
 
     .selectedPropContent {
         grid-column-start: span 3;
-        // width: 100%;
     }   
 }

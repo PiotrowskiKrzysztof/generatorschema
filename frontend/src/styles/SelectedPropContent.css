@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .selectedProp__context {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -17,9 +18,12 @@
       -ms-grid-row-align: center;
       align-self: center;
   background-color: lightgray;
+  background-image: linear-gradient(45deg, #FF53A5, #00BFCC);
+  border-radius: 5px;
 }
 
 .selectedProp__context input {
+  color-scheme: dark;
   width: 75%;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -27,6 +31,21 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin-left: 10px;
+  background-color: #20211E;
+  border: 0;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
+  caret-color: #fff;
+  color: #fff;
+}
+
+.selectedProp__context input:focus {
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
 }
 
 .selectedProp__context .buttonNewTypeProp {
@@ -34,23 +53,76 @@
   border: 5em;
   cursor: pointer;
   outline: none;
-  font-size: 18px;
-  background-color: white;
-  color: black;
-  border: 1px solid black;
-  padding: 0 2em;
+  background-color: #fff;
+  color: #fff;
+  border: 1px solid #20211E;
   border-radius: 5px;
 }
 
-.selectedProp__context select {
-  width: 100%;
-  text-align: center;
+.selectedProp__context .selectContainer {
+  position: relative;
+  width: 75%;
   margin-left: 10px;
+}
+
+.selectedProp__context .selectContainer::after {
+  content: "▼";
+  font-size: 1rem;
+  top: 0.7em;
+  right: 1em;
+  position: absolute;
+  background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
+  background-clip: text;
+  color: transparent;
+}
+
+.selectedProp__context .selectContainer select {
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  display: inline-block !important;
+  color: #fff;
+  position: relative;
+  display: block;
+  margin: auto;
+  width: 100%;
+  margin-bottom: 5px;
   font-size: 18px;
+  padding: 0.7em 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #20211E;
+  border: 0;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
+}
+
+.selectedProp__context .selectContainer select::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+
+.selectedProp__context .selectContainer select::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.selectedProp__context .selectContainer select::-webkit-scrollbar-thumb {
+  background-color: #FF53A5;
 }
 
 .selectedProp__context .typeAdded {
-  width: 75%;
+  margin-left: 10px;
+  background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
+  background-clip: text;
+  color: transparent;
+}
+
+.selectedProp__context .typeAdded svg {
+  offset: 50%;
+  stop-color: #00BFCC;
+  cursor: pointer;
 }
 
 .selectedProp__context .radio {

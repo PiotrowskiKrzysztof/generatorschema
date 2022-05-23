@@ -1,5 +1,8 @@
 @import '../Variables/Variables.scss';
 
-.customSelect {
-    @include selectStyle(100%); 
+.selectContainer {
+    @include selectContainer(100%);
+    .customSelect {
+        @include selectStyle(100%);
+    }
 }

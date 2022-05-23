@@ -11,13 +11,30 @@
         width: 25%;
         align-self: center;
         background-color: lightgray;
+        background-image: linear-gradient(45deg, $pinkColor, $blueColor);
+        border-radius: 5px;
     }
 
     input {
+        color-scheme: dark;
         width: 75%;
         align-self: center;
         box-sizing: border-box;
         margin-left: 10px;
+        background-color: $blackColor;
+        border: 0;
+        border-bottom: 1px solid;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(45deg, $pinkColor, $blueColor);
+        caret-color: $whiteColor;
+        color: $whiteColor;
+        &:focus {
+            outline: none;
+            border: 0;
+            border-bottom: 1px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(45deg, $pinkColor, $blueColor);
+        }
     }
 
     .buttonNewTypeProp {
@@ -25,24 +42,33 @@
         border: 5em;
         cursor: pointer;
         outline: none;
-        font-size: 18px;
         // background-image: linear-gradient(45deg, #4568dc, #b06ab3);
         background-color: $whiteColor;
-        color: $blackColor;
+        color: $whiteColor;
         border: 1px solid $blackColor;
-        padding: 0 2em;
-        border-radius: 5px;   
+        border-radius: 5px; 
     }
 
-    select {
-        width: 100%;
-        text-align: center;
+    .selectContainer {
+        @include selectContainer(75%);
         margin-left: 10px;
-        font-size: 18px;
+        select {
+            @include selectStyle(100%);
+        }
     }
 
     .typeAdded {
-        width: 75%;
+        // width: 75%;
+        margin-left: 10px;
+        background: -webkit-linear-gradient(45deg, $pinkColor, $blueColor);
+        background-clip: text;
+        color: transparent;
+        svg {
+            // fill: $pinkColor;
+            offset: 50%;
+            stop-color: $blueColor;
+            cursor: pointer;
+        }
     }
 
     .radio {

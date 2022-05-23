@@ -1,20 +1,47 @@
 .container {
-  color: black;
+  position: relative;
+  color: #fff;
   margin-left: auto;
   margin-right: auto;
   max-width: 940px;
   text-align: left;
+  min-height: 100vh;
+  padding-bottom: 2.5rem;
 }
 
 .container .customButton {
-  border: 5em;
+  margin-top: 10px;
   cursor: pointer;
-  outline: none;
+  position: relative;
+  background: linear-gradient(45deg, #20211E, #20211E);
+  color: #fff;
+  border: 0;
   font-size: 18px;
-  background-color: white;
-  color: black;
-  border: 1px solid black;
   padding: 0.7em 2em;
+}
+
+.container .customButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: 5px;
+  padding: 1px;
+  background: linear-gradient(45deg, #FF53A5, #00BFCC);
+  -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E)) content-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E));
+  -webkit-mask: linear-gradient(#20211E 0 0) content-box, linear-gradient(#20211E 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.container .customButton:hover {
+  background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
+  border-radius: 5px;
+}
+
+@media (max-width: 992px) {
+  .container {
+    padding: 10px;
+    padding-bottom: 50px;
+  }
 }
 /*# sourceMappingURL=Generator.css.map */

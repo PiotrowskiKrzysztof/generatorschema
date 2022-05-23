@@ -18,24 +18,26 @@ function SelectAdditionalTypes({ allElements, propsNoNested, type, prop, selectP
         <div>
             <div className="addProperty">
                 <p className='propertyText'>Add property to { thisProp.nameShort }:</p>
-                <select name={ thisProp.nameShort + ' ' + idElement } onChange={ selectPropAdditional } value='empty'>
-                    <option value='empty' disabled hidden>Select property</option>
-                    {
-                            arrayUniqueByKey.map(element => {
-                                if(element.prop === thisProp.nameShort) {
-                                    return (
-                                        <optgroup label={ '--- Properties from ' + element.types + ' ---' } key={element.types + element.prop}>
-                                            <SelectTypesOptions 
-                                                allElements={ allElements }
-                                                element={ element.types }
-                                                firstType={ element.lastChild }
-                                            />
-                                        </optgroup>
-                                    )
-                                }
-                        })
-                    }
-                </select>
+                <div className="selectContainer">
+                    <select name={ thisProp.nameShort + ' ' + idElement } onChange={ selectPropAdditional } value='empty'>
+                        <option value='empty' disabled hidden>Select property</option>
+                        {
+                                arrayUniqueByKey.map(element => {
+                                    if(element.prop === thisProp.nameShort) {
+                                        return (
+                                            <optgroup label={ '--- Properties from ' + element.types + ' ---' } key={element.types + element.prop}>
+                                                <SelectTypesOptions 
+                                                    allElements={ allElements }
+                                                    element={ element.types }
+                                                    firstType={ element.lastChild }
+                                                />
+                                            </optgroup>
+                                        )
+                                    }
+                            })
+                        }
+                    </select>
+                </div>
             </div>
         </div>
     );

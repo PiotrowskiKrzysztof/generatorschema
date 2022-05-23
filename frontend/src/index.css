@@ -5,6 +5,25 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #20211E;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background: transparent;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent
+}
+
+body::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(45deg, #00BFCC, #FF53A5);
+}
+
+::selection {
+  color: white;
+  background-color: #FF53A5;
 }
 
 code {

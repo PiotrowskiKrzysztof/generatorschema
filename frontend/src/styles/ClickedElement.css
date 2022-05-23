@@ -1,6 +1,16 @@
+@charset "UTF-8";
 .customUL {
   -webkit-column-count: 3;
           column-count: 3;
+}
+
+.addProperty {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .addProperty p {
@@ -8,17 +18,56 @@
   width: 35%;
 }
 
-.addProperty select {
+.addProperty .selectContainer {
+  position: relative;
+  width: 65%;
+}
+
+.addProperty .selectContainer::after {
+  content: "▼";
+  font-size: 1rem;
+  top: 0.7em;
+  right: 1em;
+  position: absolute;
+  background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
+  background-clip: text;
+  color: transparent;
+}
+
+.addProperty .selectContainer select {
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
   display: inline-block !important;
+  color: #fff;
   position: relative;
   display: block;
   margin: auto;
-  width: 65%;
+  width: 100%;
   margin-bottom: 5px;
   font-size: 18px;
-  padding: 0.7em 2em;
+  padding: 0.7em 1em;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #20211E;
+  border: 0;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
+}
+
+.addProperty .selectContainer select::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+
+.addProperty .selectContainer select::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.addProperty .selectContainer select::-webkit-scrollbar-thumb {
+  background-color: #FF53A5;
 }
 
 .addProperty .propertyText {
@@ -29,14 +78,30 @@
 }
 
 .customButton {
-  border: 5em;
   cursor: pointer;
-  outline: none;
+  position: relative;
+  background: linear-gradient(45deg, #20211E, #20211E);
+  color: #fff;
+  border: 0;
   font-size: 18px;
-  background-color: white;
-  color: black;
-  border: 1px solid black;
   padding: 0.7em 2em;
+}
+
+.customButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  padding: 1px;
+  background: linear-gradient(45deg, #FF53A5, #00BFCC);
+  -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E)) content-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E));
+  -webkit-mask: linear-gradient(#20211E 0 0) content-box, linear-gradient(#20211E 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.customButton:hover {
+  background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
   border-radius: 5px;
 }
 
@@ -48,30 +113,54 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin: 20px 0 20px 0;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .finallCode {
+  position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  width: 100%;
   max-width: 100%;
   min-width: 100%;
   height: 100px;
-  padding: 10px;
-  margin-top: 10px;
+  color: #fff;
+  padding: 0.5rem;
+  border: double 1px transparent;
+  border-radius: 5px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#20211E), to(#20211E)), -webkit-gradient(linear, left top, right top, from(#FF53A5), to(#00BFCC));
+  background-image: linear-gradient(#20211E, #20211E), linear-gradient(to right, #FF53A5, #00BFCC);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .generateButton {
-  border: 5em;
-  cursor: pointer;
-  outline: none;
-  font-size: 18px;
-  background-color: white;
-  color: black;
-  border: 1px solid black;
-  padding: 0.2em 0.7em;
-  border-radius: 5px;
   margin-left: 10px;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(45deg, #20211E, #20211E);
+  color: #fff;
+  border: 0;
+  font-size: 18px;
+  padding: 0.7em 2em;
+}
+
+.generateButton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  padding: 1px;
+  background: linear-gradient(45deg, #FF53A5, #00BFCC);
+  -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E)) content-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E));
+  -webkit-mask: linear-gradient(#20211E 0 0) content-box, linear-gradient(#20211E 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.generateButton:hover {
+  background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
+  border-radius: 5px;
 }
 
 .generateButtonContainer {
@@ -83,5 +172,49 @@
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+}
+
+.containerTitleCode {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.containerTitleCode .icon {
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+a {
+  background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
+  background-clip: text;
+  color: transparent;
+  text-decoration: none;
+}
+
+@media (max-width: 992px) {
+  .finallButtonsContainer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .customUL {
+    -webkit-column-count: 2;
+            column-count: 2;
+  }
+}
+
+@media (max-width: 576px) {
+  .customUL {
+    -webkit-column-count: 1;
+            column-count: 1;
+  }
 }
 /*# sourceMappingURL=ClickedElement.css.map */

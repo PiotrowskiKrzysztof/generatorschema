@@ -4,6 +4,7 @@ import GeneratorSelectNext from "./GeneratorSelectNext";
 import axios from '../axios';
 import ClickedElement from "./ClickedElement";
 import '../styles/Generator.css';
+import Footer from "./Footer";
 
 
 class Generator extends React.Component {
@@ -100,7 +101,8 @@ class Generator extends React.Component {
                             propsNoNested = { this.state.allPropsNoNested }
                         />
                     }
-                </div>                                    
+                </div>
+                <Footer />                                   
             </div>
         );
     }

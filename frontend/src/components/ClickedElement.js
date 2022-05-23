@@ -3,6 +3,7 @@ import SelectedProp from "./SelectedProp";
 import SelectMainTypes from "./SelectMainTypes";
 import SelectAdditionalTypes from "./SelectAdditionalTypes ";
 import '../styles/ClickedElement.css';
+import { BsXLg } from 'react-icons/bs';
 
 function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     const selectedObject = allElements.find(e => e.nameShort === item);
@@ -24,6 +25,10 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
     const [finallRDFa, setFinallRDFa] = useState('');
     const [finallNTriples, setFinalNTriples] = useState('');
     const [finallTurtle, setFinallTurtle] = useState('');
+    const [showJSONLD, setShowJSONLD ] = useState(false);
+    const [showRDFa, setShowRDFa ] = useState(false);
+    const [showNTriples, setShowNTriples ] = useState(false);
+    const [showTurtle, setShowTurtle ] = useState(false);
 
     const generateChildList = subObjects.map(element =>
         <li key={ element.nameShort } >{ element.nameShort }</li>
@@ -290,6 +295,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         const finallStringWithScripts = '<script type="application/ld+json">\n' + finallString + '\n</script>';
         setFinalJSONLDnoScript(finallString);
         setFinalJSONLD(finallStringWithScripts);
+        setShowJSONLD(true);
     }
 
     function tabulators(margin) {
@@ -341,6 +347,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             }
         })        
         setFinallRDFa(finallString);
+        setShowRDFa(true);
     }
 
     function generateNTriples() {
@@ -388,6 +395,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
             }
         })
         setFinalNTriples(finallString);
+        setShowNTriples(true);
     }
 
     function saveScript(inputData, type) {
@@ -458,6 +466,7 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
         finallString = finallString.replace(/https:\/\/schema.org\//g, 's:');
         finallString = '@prefix s: <https://schema.org/> .\n' + finallString;
         setFinallTurtle(finallString);
+        setShowTurtle(true);
     }
 
     return(
@@ -511,30 +520,78 @@ function ClickedElement({ allElements, item, pathElements, propsNoNested }) {
                 })
             }
             <h1>Generate Code</h1>
-            {finallJSONLDnoScript !== '' && 
+            {showJSONLD && 
             <div>
+                <div className="containerTitleCode">
+                    <h3>JSON-LD</h3>
+                    <svg height='0' width='0'>
+                        <defs>
+                            <linearGradient id="gradientDeleteBtn">
+                                <stop stopColor="#FF53A5" offset='0%'></stop>
+                                <stop stopColor="#00BFCC" offset='100%'></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowJSONLD(false) } className='icon'/>
+                </div>
                 <textarea className="finallCode" value={ finallJSONLDnoScript } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallJSONLD, 'json-ld') }>Save As JSON-LD Script</button>
                     <button className='generateButton' onClick={ () => saveScript(finallJSONLDnoScript, 'json-ld') }>Save As JSON-LD NoScript</button>
                 </div>
             </div>}
-            {finallRDFa !== '' &&
+            {showRDFa &&
             <div>
+                <div className="containerTitleCode">
+                    <h3>RDFa</h3>
+                    <svg height='0' width='0'>
+                        <defs>
+                            <linearGradient id="gradientDeleteBtn">
+                                <stop stopColor="#FF53A5" offset='0%'></stop>
+                                <stop stopColor="#00BFCC" offset='100%'></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowRDFa(false) } className='icon'/>
+                </div>
                 <textarea className="finallCode" value={ finallRDFa } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallRDFa, 'RDFa') }>Save As RDFa</button>
                 </div>
             </div>}
-            {finallNTriples !== '' &&
+            {showNTriples &&
             <div>
+                <div className="containerTitleCode">
+                    <h3>N-Triples</h3>
+                    <svg height='0' width='0'>
+                        <defs>
+                            <linearGradient id="gradientDeleteBtn">
+                                <stop stopColor="#FF53A5" offset='0%'></stop>
+                                <stop stopColor="#00BFCC" offset='100%'></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowNTriples(false) } className='icon'/>
+                </div>
                 <textarea className="finallCode" value={ finallNTriples } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallNTriples, 'N-Triples') }>Save As N-Triples</button>
                 </div>
             </div>}
-            {finallTurtle !== '' &&
+            {showTurtle &&
             <div>
+                <div className="containerTitleCode">
+                    <h3>Turtle</h3>
+                    <svg height='0' width='0'>
+                        <defs>
+                            <linearGradient id="gradientDeleteBtn">
+                                <stop stopColor="#FF53A5" offset='0%'></stop>
+                                <stop stopColor="#00BFCC" offset='100%'></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => setShowTurtle(false) } className='icon'/>
+                </div>
                 <textarea className="finallCode" value={ finallTurtle } readOnly='true' spellCheck='false'></textarea>
                 <div className="generateButtonContainer">
                     <button className='generateButton' onClick={ () => saveScript(finallTurtle, 'Turtle') }>Save As Turtle</button>

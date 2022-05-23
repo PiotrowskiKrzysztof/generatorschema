@@ -52,7 +52,18 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
         <div className='selectedProp'>
             <p className="selectedProp__icon" onClick={() => setShow(!show)}><BsArrowDown /></p>
             <label>{ element }</label>
-            {childrenTypes.length === 0 && <p className="selectedProp__delete" onClick={ () => {deleteProp(fullElement); } }><BsXLg /></p> }
+            {childrenTypes.length === 0 &&
+            <p className="selectedProp__delete" onClick={ () => {deleteProp(fullElement); } }>
+                <svg height='0' width='0'>
+                    <defs>
+                        <linearGradient id="gradientDeleteBtn">
+                            <stop stopColor="#FF53A5" offset='0%'></stop>
+                            <stop stopColor="#00BFCC" offset='100%'></stop>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }}/>
+            </p> }
                 <div className={correctStyle()}>   
                     {selectedProp.types.map(item => {
                          return (

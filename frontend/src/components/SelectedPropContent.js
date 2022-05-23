@@ -71,10 +71,12 @@ function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin
         return(
             <div className='selectedProp__context'>
                 <p>{ item }</p>
-                <select disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }>
-                    <option value='true'>true</option>
-                    <option value='false'>false</option>
-                </select>
+                <div className="selectContainer">
+                    <select disabled={ blockInputs } name={ fullElement.nameShort + " " + fullElement.parent + " " + fullElement._id } onChange={ handleValueProp }>
+                        <option value='true'>true</option>
+                        <option value='false'>false</option>
+                    </select>
+                </div>
             </div>
         )
     } else if(item === 'Date') {
@@ -145,7 +147,7 @@ function SelectedPropContent({ item, newTypeProp, changeMargin, thisProp, margin
             <div className='selectedProp__context'>
                 <p>{ item }</p>                
                 {(notBlockedTypes.some(e => e === item)) ? (!addedNewType ? <p className="buttonNewTypeProp" onClick={ () => { newTypeProp(item, fullElement); setAddedNewType(true); changeMargin(); fetchMargin(margin, thisProp); addChildrenTypes(item); handleBlockInuts(true); changeNotBlockedTypes(item); resetValueProp(fullElement); } }>Add Type</p>
-                : canDeleteType ? <p className="typeAdded">Type added <BsXLg onClick={ () => {deleteChildrenTypes(item); setAddedNewType(!addedNewType); deleteType(fullElement, item); handleBlockInuts(false); changeNotBlockedTypes(selectedProp.types)}} /></p>
+                : canDeleteType ? <p className="typeAdded">Type added <svg height='0' width='0'><defs><linearGradient id="gradientDeleteBtn"><stop stopColor="#FF53A5" offset='0%'></stop><stop stopColor="#00BFCC" offset='100%'></stop></linearGradient></defs></svg><BsXLg style={{ fill: 'url(#gradientDeleteBtn)' }} onClick={ () => {deleteChildrenTypes(item); setAddedNewType(!addedNewType); deleteType(fullElement, item); handleBlockInuts(false); changeNotBlockedTypes(selectedProp.types)}} /></p>
                 : <p className="typeAdded">Type added</p>) : <p className="typeAdded">You added other type</p>}
             </div>
         )

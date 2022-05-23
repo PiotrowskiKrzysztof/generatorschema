@@ -1,30 +1,80 @@
 // COLORS
-$blackColor: black;
-$whiteColor: white;
-
-// FONTS
+$blackColor: #20211E;
+$whiteColor: #fff;
+$pinkColor: #FF53A5;
+$blueColor: #00BFCC;
 
 // MIXINS
 @mixin selectStyle($size) {
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-block !important;
+    color: $whiteColor;
     position: relative;
     display: block;
     margin: auto;
     width: $size;
     margin-bottom: 5px;
     font-size: 18px; 
-    padding: 0.7em 2em;
+    padding: 0.7em 1em;
     border-radius: 5px;
     cursor: pointer;
+    background-color: $blackColor;
+    border: 0;
+    border-bottom: 1px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(45deg, $pinkColor, $blueColor);
+    &::-webkit-scrollbar {
+        width: 5px;
+        background: transparent;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $pinkColor;
+    }
+}
+
+@mixin selectContainer($size) {
+    position: relative;
+    width: $size;
+    &::after {
+        content: "▼";
+        font-size: 1rem;
+        top: 0.7em;
+        right: 1em;
+        position: absolute;
+        background: -webkit-linear-gradient(45deg, $pinkColor, $blueColor);
+        background-clip: text;
+        color: transparent;
+    }
 }
 
 @mixin buttonStyle {
-    border: 5em;
     cursor: pointer;
-    outline: none;
+    position: relative;
+    background: linear-gradient(45deg, $blackColor, $blackColor); 
+    color: $whiteColor;
+    border: 0;
     font-size: 18px;
-    background-color: $whiteColor;
-    color: $blackColor;
-    border: 1px solid $blackColor;
     padding: 0.7em 2em;
-    border-radius: 5px;   
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 5px; 
+        padding: 1px; 
+        background: linear-gradient(45deg, $pinkColor, $blueColor); 
+        -webkit-mask: 
+            linear-gradient($blackColor 0 0) content-box, 
+            linear-gradient($blackColor 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;      
+    }
+    &:hover {
+        background: linear-gradient(45deg,$pinkColor,$blueColor) border-box;
+        border-radius: 5px;
+    }
 }

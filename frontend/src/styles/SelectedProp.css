@@ -3,12 +3,29 @@
           box-sizing: border-box;
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid black;
-  border-radius: 5px;
+  position: relative;
+  background: linear-gradient(45deg, #20211E, #20211E);
+  color: #fff;
+  border: 0;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 40px auto 40px;
       grid-template-columns: 40px auto 40px;
+  z-index: 10;
+}
+
+.selectedProp::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 5px;
+  padding: 1px;
+  background: linear-gradient(45deg, #FF53A5, #00BFCC);
+  -webkit-mask: -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E)) content-box, -webkit-gradient(linear, left top, left bottom, color-stop(0, #20211E));
+  -webkit-mask: linear-gradient(#20211E 0 0) content-box, linear-gradient(#20211E 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
 }
 
 .selectedProp .selectedProp__icon {
