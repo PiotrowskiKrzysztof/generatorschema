@@ -117,15 +117,21 @@
   background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
   background-clip: text;
   color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .selectedProp__context .typeAdded svg {
+  margin-left: 5px;
   offset: 50%;
   stop-color: #00BFCC;
   cursor: pointer;
-}
-
-.selectedProp__context .radio {
-  background-color: red;
 }
 /*# sourceMappingURL=SelectedPropContent.css.map */

@@ -4,9 +4,9 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+    box-sizing: border-box;
     .footerContainer {
         height: 2.5rem;
-        width: 100%;
         color: $whiteColor;
         display: flex;
         justify-content: space-between;
@@ -14,5 +14,11 @@
         margin-left: auto;
         margin-right: auto;
         max-width: 940px;
+    }
+}
+
+@media (max-width: 992px) {
+    .absoluteContainer {
+        width: calc(100% - 20px);
     }
 }

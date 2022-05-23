@@ -1,12 +1,36 @@
 .customSelect {
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  display: inline-block !important;
+  color: #fff;
   position: relative;
   display: block;
   margin: auto;
   width: 100%;
   margin-bottom: 5px;
   font-size: 18px;
-  padding: 0.7em 2em;
+  padding: 0.7em 1em;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #20211E;
+  border: 0;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
+}
+
+.customSelect::-webkit-scrollbar {
+  width: 5px;
+  background: transparent;
+}
+
+.customSelect::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.customSelect::-webkit-scrollbar-thumb {
+  background-color: #FF53A5;
 }
 /*# sourceMappingURL=GeneratorSelectNext.css.map */

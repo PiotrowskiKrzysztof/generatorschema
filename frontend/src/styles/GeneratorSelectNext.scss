@@ -1,6 +1,5 @@
 @import '../Variables/Variables.scss';
 
 .customSelect {
-    // background-color: rebeccapurple;
     @include selectStyle(100%);    
 }
