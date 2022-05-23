@@ -201,6 +201,11 @@
   margin-bottom: 0;
 }
 
+.containerTitleCode svg:hover {
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+}
+
 a {
   background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
   background-clip: text;

@@ -77,6 +77,11 @@
         cursor: pointer;
         margin-bottom: 0;
     }
+    svg {
+        &:hover {
+            filter: brightness(120%);
+        }
+    }
 }
 
 a {
