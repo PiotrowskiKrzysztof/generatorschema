@@ -118,6 +118,7 @@
 }
 
 .finallCode {
+  overflow: hidden;
   position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -132,6 +133,10 @@
   background-image: linear-gradient(#20211E, #20211E), linear-gradient(to right, #FF53A5, #00BFCC);
   background-origin: border-box;
   background-clip: padding-box, border-box;
+}
+
+.finallCode:focus {
+  outline: none;
 }
 
 .generateButton {

@@ -1,3 +1,17 @@
+@-webkit-keyframes buttonHover {
+  to {
+    background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
+    border-radius: 5px;
+  }
+}
+
+@keyframes buttonHover {
+  to {
+    background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
+    border-radius: 5px;
+  }
+}
+
 .customSelect {
   outline: none;
   -webkit-appearance: none;

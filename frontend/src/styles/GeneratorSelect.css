@@ -1,4 +1,17 @@
 @charset "UTF-8";
+@-webkit-keyframes buttonHover {
+  to {
+    background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
+    border-radius: 5px;
+  }
+}
+@keyframes buttonHover {
+  to {
+    background: linear-gradient(45deg, #FF53A5, #00BFCC) border-box;
+    border-radius: 5px;
+  }
+}
+
 .selectContainer {
   position: relative;
   width: 100%;
@@ -13,11 +26,6 @@
   background: -webkit-linear-gradient(45deg, #FF53A5, #00BFCC);
   background-clip: text;
   color: transparent;
-}
-
-.selectContainer::after:focus {
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
 }
 
 .selectContainer .customSelect {
