@@ -48,6 +48,15 @@
   border-image-source: linear-gradient(45deg, #FF53A5, #00BFCC);
 }
 
+.selectedProp__context input:invalid {
+  outline: none;
+  border: 0;
+  border-bottom: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(45deg, #e52d27, #b31217);
+  caret-color: #e52d27;
+}
+
 .selectedProp__context .buttonNewTypeProp {
   margin-left: 10px;
   border: 5em;

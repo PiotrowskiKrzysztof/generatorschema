@@ -28,6 +28,10 @@
   z-index: -1;
 }
 
+.selectedProp:invalid::after {
+  background: linear-gradient(45deg, #e52d27, #870000);
+}
+
 .selectedProp .selectedProp__icon {
   -ms-grid-column: 1;
   grid-column: 1;

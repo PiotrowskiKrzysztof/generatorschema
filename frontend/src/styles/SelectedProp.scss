@@ -26,6 +26,12 @@
         z-index: -1;
     }
 
+    &:invalid {
+        &::after {
+            background: linear-gradient(45deg, $invalidColor1, $invalidColor2);
+        }
+    }
+
     .selectedProp__icon {
         grid-column: 1;
         cursor: pointer;

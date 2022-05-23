@@ -49,7 +49,7 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
     }
 
     return[
-        <div className='selectedProp'>
+        <fieldset className='selectedProp'>
             <p className="selectedProp__icon" onClick={() => setShow(!show)}><BsArrowDown /></p>
             <label>{ element }</label>
             {childrenTypes.length === 0 &&
@@ -94,7 +94,7 @@ function SelectedProp({ element, propsNoNested, deleteProp, newTypeProp, deleteT
                     })}
 
                 </div>
-        </div>,
+        </fieldset>,
         chosenPropsAdditional.map(e => {
             if(e.startPropID === (fullElement._id).toString()) {
                 return(

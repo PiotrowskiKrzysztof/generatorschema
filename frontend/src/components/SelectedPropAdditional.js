@@ -56,7 +56,7 @@ function SelectedPropAdditional({ element, thisProp, propsNoNested, newTypeProp,
     }
 
     return(
-        <div className='selectedProp' style={{ marginLeft: thisProp.margin*2 }}>
+        <fieldset className='selectedProp' style={{ marginLeft: thisProp.margin*2 }}>
             <p className="selectedProp__icon" onClick={() => setShow(!show)}><BsArrowDown /></p>            
             <label>{thisProp.nameShort} - {thisProp.parent}</label>
             {childrenTypes.length === 0 &&
@@ -101,7 +101,7 @@ function SelectedPropAdditional({ element, thisProp, propsNoNested, newTypeProp,
                 })}
 
             </div>
-        </div>
+        </fieldset>
     );
 }
 
