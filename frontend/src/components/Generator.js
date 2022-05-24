@@ -46,7 +46,7 @@ class Generator extends React.Component {
         this.setState({ allPropsNoNested });
     }
 
-    selectedElement(e) {        
+    selectedElement(e) {    
         const tmpArr = this.state.pathElements;
         let deeph;
         const tmpDeeph = e.target.options.selectedIndex;

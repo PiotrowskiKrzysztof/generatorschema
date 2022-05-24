@@ -9,10 +9,9 @@ function Header() {
         <div className="fullWidthContainer">
             <div className="headerContainer">
                 <Logo width='180' />
-                <div>
+                {/* <div>
                     <button className="selected"><a href="/">Generator</a></button>
-                </div>
-                
+                </div>         */}
             </div>
         </div>
     );

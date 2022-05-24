@@ -2,7 +2,7 @@ import React from "react";
 import '../styles/GeneratorSelect.css';
 
 function GeneratorSelect({ allElements, selectedElement }) {
-    // let currentValue = selectedElement.nameShort || 'empty';
+
     return(
         <div className="selectContainer">
             <select onChange={ selectedElement } className='customSelect' defaultValue='empty'>
