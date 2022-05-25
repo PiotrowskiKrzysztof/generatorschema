@@ -8,7 +8,7 @@ function Header() {
     return(
         <div className="fullWidthContainer">
             <div className="headerContainer">
-                {/* <Logo width='180' /> */}
+                <Logo width='180' />
                 {/* <div>
                     <button className="selected"><a href="/">Generator</a></button>
                 </div>         */}
