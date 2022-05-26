@@ -9,6 +9,6 @@ jobs:
     - name: curl
       uses: wei/curl@master
       with:
-        args: https://raw.githubusercontent.com/PiotrowskiKrzysztof/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl
+        args: https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl
           
       
