@@ -12,8 +12,8 @@ jobs:
       run: echo "$(<schemaorg-current-http.ttl)"
     - name: Commit file
       run: |
-        git config --local user.email "krzysiek.p97@gmail.com"
-        git config --local user.name "PiotrowskiKrzysztof"
+        git config --global user.email "krzysiek.p97@gmail.com"
+        git config --global user.name "PiotrowskiKrzysztof"
         git add schemaorg-current-http.ttl
         git commit -m "new vocabulary version"
     - name: Push changes
