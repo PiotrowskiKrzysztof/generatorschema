@@ -7,10 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: curl
-      uses: wei/curl@master
-      with:
-        args: https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.txt
-    - name: display content file
-      run: echo "$(schemaorg-current-http.txt)"
-          
+      run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
+    - name: display file
+      run: echo "(<schemaorg-current-http.ttl)"
       
