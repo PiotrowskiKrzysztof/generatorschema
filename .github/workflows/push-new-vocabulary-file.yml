@@ -6,12 +6,15 @@ jobs:
   copy-file:
     runs-on: ubuntu-latest
     steps:
-    - name: Pushes to another repository
-      uses: cpina/github-action-push-to-another-repository@main
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Push a file to another repository
+      uses: dmnemec/copy_file_to_another_repo_action@main
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source-directory: 'https://github.com/PiotrowskiKrzysztof/schemaorg/tree/main/data/releases/14.0'
-        destination-repository-name: 'generatorschema'
-        user-email: krzysiek.p97@gmail.com
-        target-branch: main
+        source_file: 'https://github.com/schemaorg/schemaorg/tree/main/data/releases/14.0/schemaorg-current-http.ttl'
+        destination_repo: 'PiotrowskiKrzysztof/generatorschema/'
+        user_email: 'krzysiek.p97@gmail.com'
+        user_name: 'PiotrowskiKrzysztof'
+        commit_message: 'New version vocabulary schema.org'
