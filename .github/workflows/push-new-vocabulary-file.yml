@@ -10,16 +10,10 @@ jobs:
       run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
     - name: display file
       run: echo "$(<schemaorg-current-http.ttl)"
-    - name: Commit file
-      run: |
-        git config --global user.email "krzysiek.p97@gmail.com"
-        git config --global user.name "PiotrowskiKrzysztof"
-        git add schemaorg-current-http.ttl
+    - uses: actions/checkout@v3
+    - run: |
+        git config user.email "krzysiek.p97@gmail.com"
+        git config user.name "PiotrowskiKrzysztof"
+        git add .
         git commit -m "new vocabulary version"
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        branch: main
-        github_token: ${{ secrets.API_TOKEN_GITHUB }}
-        force: true
-      
+        git push
