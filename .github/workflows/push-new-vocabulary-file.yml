@@ -10,7 +10,7 @@ jobs:
       uses: wei/curl@master
       with:
         args: https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
-    - name: commit new file
-      run: echo schemaorg-current-http.ttl
+    - name: display content file
+      run: echo "$(schemaorg-current-http.ttl)"
           
       
