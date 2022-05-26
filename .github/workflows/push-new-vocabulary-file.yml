@@ -9,8 +9,8 @@ jobs:
     - name: curl
       uses: wei/curl@master
       with:
-        args: https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
+        args: https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.txt
     - name: display content file
-      run: echo "$(schemaorg-current-http.ttl)"
+      run: echo "$(schemaorg-current-http.txt)"
           
       
