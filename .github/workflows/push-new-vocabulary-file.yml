@@ -11,7 +11,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source-directory: 'schemaorg/blob/main/data/releases/14.0'
+        source-directory: 'https://github.com/PiotrowskiKrzysztof/schemaorg/tree/main/data/releases/14.0'
         destination-github-username: 'PiotrowskiKrzysztof'
         destination-repository-name: 'generatorschema'
         user-email: krzysiek.p97@gmail.com
