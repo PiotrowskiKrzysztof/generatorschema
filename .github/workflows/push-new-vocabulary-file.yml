@@ -6,6 +6,8 @@ jobs:
   curl:
     runs-on: ubuntu-latest
     steps:
+    - name: chockout
+      uses: actions/checkout@v3
     - name: curl
       run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
     - name: display file
@@ -14,7 +16,6 @@ jobs:
       run: |
         mkdir -p ./output/
         yes| cp -rf schemaorg-current-http.ttl ./output/
-    - uses: actions/checkout@v3
     - run: |
         git config user.email "krzysiek.p97@gmail.com"
         git config user.name "PiotrowskiKrzysztof"
