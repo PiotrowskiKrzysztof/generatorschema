@@ -11,10 +11,6 @@ jobs:
       with:
         args: https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
     - name: commit new file
-      run: |
-        git config --global user.name PiotrowskiKrzysztof
-        git config --global user.email krzysiek.p97@gmail.com
-        git commit -am "new vocabulary file"
-        git push
+      run: echo schemaorg-current-http.ttl
           
       
