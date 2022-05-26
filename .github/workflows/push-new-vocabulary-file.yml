@@ -14,7 +14,7 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
         source_file: 'https://github.com/schemaorg/schemaorg/tree/main/data/releases/14.0/schemaorg-current-http.ttl'
-        destination_repo: 'PiotrowskiKrzysztof/generatorschema/'
+        destination_repo: 'PiotrowskiKrzysztof/generatorschema'
         user_email: 'krzysiek.p97@gmail.com'
         user_name: 'PiotrowskiKrzysztof'
         commit_message: 'New version vocabulary schema.org'
