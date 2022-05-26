@@ -3,14 +3,12 @@ name: Push File
 on: push
 
 jobs:
-  copy-file:
+  curl:
     runs-on: ubuntu-latest
     steps:
-    - name: CopyCat
-      uses: andstor/copycat-action@v3
+    - name: curl
+      uses: wei/curl@master
       with:
-        personal_token: ${{ secrets.API_TOKEN_GITHUB }}
-        src_path: /schemaorg/data/releases/14.0/schemaorg-current-http.ttl
-        dst_path: /
-        dst_owner: PiotrowskiKrzysztof
-        dst_repo_name: generatorschema
+        args: https://github.com/PiotrowskiKrzysztof/schemaorg/blob/main/data/releases/14.0/schemaorg-current-http.ttl
+          
+      
