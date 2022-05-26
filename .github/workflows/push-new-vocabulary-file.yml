@@ -6,15 +6,11 @@ jobs:
   copy-file:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Push a file to another repository
-      uses: dmnemec/copy_file_to_another_repo_action@main
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+    - name: CopyCat
+      uses: andstor/copycat-action@v3
       with:
-        source_file: 'PiotrowskiKrzysztof/schemaorg/data/releases/14.0/schemaorg-current-http.ttl'
-        destination_repo: 'PiotrowskiKrzysztof/generatorschema'
-        user_email: 'krzysiek.p97@gmail.com'
-        user_name: 'PiotrowskiKrzysztof'
-        commit_message: 'New version vocabulary schema.org'
+        personal_token: ${{ secrets.API_TOKEN_GITHUB }}
+        src_path: /schemaorg/data/releases/14.0/schemaorg-current-http.ttl
+        dst_path: /
+        dst_owner: PiotrowskiKrzysztof
+        dst_repo_name: generatorschema
