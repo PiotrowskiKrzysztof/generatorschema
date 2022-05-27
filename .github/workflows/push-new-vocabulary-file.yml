@@ -14,5 +14,6 @@ jobs:
       run: echo "$(<schemaorg-current-http.ttl)"
     - name: Run remake database
       run: |
+        node server.js
         chmod +x ./controllers/ApplicationsController.js
         ./controllers/ApplicationsController.js
