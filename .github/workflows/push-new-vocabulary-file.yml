@@ -19,7 +19,7 @@ jobs:
       run: |      
         finallVersion=0.0
         while read p; do
-          SUBSTRING=$($p| cut -d' ' -f 2)
+          SUBSTRING=$(echo $p| cut -d' ' -f 2)
           SUBSTRING=${SUBSTRING//[!0-9]/}
           if [[ ${#SUBSTRING} -eq 8 ]]; then 
             finallVersion=${p:1:4}
