@@ -23,6 +23,7 @@ jobs:
       run: |
         npm i
         node server.js
+        MONGODB_URI=${{ secrets.MONGODB_URI }}
         chmod +x ./controllers/ApplicationsController.js
         ./controllers/ApplicationsController.js
         
