@@ -17,7 +17,7 @@ jobs:
         echo "$(<version.json)"
     - name: curl
       run: |      
-        finallVersion=14.0
+        finallVersion=0.0
         echo $finallVersion
         url="https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/${finallVersion}/schemaorg-current-http.ttl"
         echo $url
@@ -29,9 +29,11 @@ jobs:
           echo "length: ${#SUBSTRING}"
           if [[ ${#SUBSTRING} -eq 8 ]]; then 
             echo "mam cie!"
+            finallVersion=${p:1:4}
             break
           fi
           echo $SUBSTRING
         done <version.json
+        echo $finallVersion
     - name: display ttl
       run: echo "$(<schemaorg-current-http.ttl)"
