@@ -15,7 +15,7 @@ jobs:
       run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/versions.json > version.json
     - name: display version
       run: |
-        finallVersion: 14.0
+        finallVersion=14.0
         echo "$(<version.json)"
     - name: curl
       run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/+finallVersion+/schemaorg-current-http.ttl > schemaorg-current-http.ttl
