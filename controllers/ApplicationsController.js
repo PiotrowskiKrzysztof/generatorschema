@@ -6,11 +6,7 @@ const Element = require('../db/models/element');
 const ElementNoNested = require('../db/models/elementNoNested');
 const PropNoNested = require('../db/models/propNoNested');
 
-console.log('0');
-
-
-
-    console.log('1');
+console.log('Start remake database');
 
     const parser = new N3.Parser();
     const rdfStream = fs.createReadStream(path.join('./schemaorg-current-http.ttl'));
@@ -137,7 +133,6 @@ console.log('0');
         // DODANIE NIEZAGNIEŻDŻONYCH WŁAŚCIWOŚCI
         propNoNested.forEach(function(element) {
             replacePropsNoNested(element);
-            console.log('2 - Replace Props No Nested');
         })
         async function replacePropsNoNested(data) {
             const element = await PropNoNested.findOne({ nameShort: data.nameShort });
@@ -155,7 +150,6 @@ console.log('0');
         // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
         tmpProp.forEach(function(element) {
             replaceElementsNoNested(element);
-            console.log('3 - Replace Elements No Nested');
         })
         async function replaceElementsNoNested(data) {
             const element = await ElementNoNested.findOne({ nameShort: data.nameShort });
@@ -175,7 +169,6 @@ console.log('0');
         // DODAWANIE ELEMENTÓW DO BAZY DANYCH !!!!
         mainObjects.forEach(function(element) {
             replaceElements(element);
-            console.log('4 - Replace Elements');
         })
         async function replaceElements(data) {
             const element = await Element.findOne({ nameShort: data.nameShort });
@@ -190,7 +183,7 @@ console.log('0');
             }
         }
         const ttt = await Element.find({});
-        generateForm(ttt);
+        // generateForm(ttt);
     })()
 
     const addElementDB = async (data) => {
@@ -230,3 +223,5 @@ console.log('0');
             tmp += '</select>'
             res.send('completed');
     }   
+
+console.log('End remake database');
