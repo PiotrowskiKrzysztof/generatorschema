@@ -21,6 +21,6 @@ jobs:
         echo $finallVersion
         url="https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/${finallVersion}/schemaorg-current-http.ttl"
         echo $url
-        curl ${url} > schemaorg-current-http.ttl
+        curl ${url} | jq '.releaseLog[]' > schemaorg-current-http.ttl
     - name: display ttl
       run: echo "$(<schemaorg-current-http.ttl)"
