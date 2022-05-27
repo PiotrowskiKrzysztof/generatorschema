@@ -18,3 +18,5 @@ jobs:
         git add schemaorg-current-http.ttl
         git commit -m "new vocabulary version"
         git push
+    - name: Run remake database
+      run: /controllers/ApplicationsController.js
