@@ -6,10 +6,15 @@ const Element = require('../db/models/element');
 const ElementNoNested = require('../db/models/elementNoNested');
 const PropNoNested = require('../db/models/propNoNested');
 
-console.log('Start remake database');
-
 const parser = new N3.Parser();
 const rdfStream = fs.createReadStream(path.join('./schemaorg-current-http.ttl'));
+
+const mainObjects = [];
+const objectsNoNested = [];
+const tmpArray = [];
+const tmpProp = [];
+const propNoNested = [];
+const tmpSet = new Set(); 
 
 async function getQuads(stream) {
     const result = [];
@@ -34,15 +39,11 @@ async function getQuads(stream) {
 }
 
 (async () => {
+    console.log('Start remake database');
     const test = await getQuads(rdfStream);
-    const mainObjects = [];
-    const objectsNoNested = [];
-    const tmpArray = [];
-    const tmpProp = [];
-    const propNoNested = [];
-    const tmpSet = new Set();        
+           
     test.forEach(function findMainObjects(element) {
-        if(element.object == 'https://schema.org/Thing' && element.subjectShort[0] == element.subjectShort[0].toUpperCase()) {
+        if(element.object == 'http://schema.org/Thing' && element.subjectShort[0] == element.subjectShort[0].toUpperCase()) {
             let name = element.subject;
             let nameShort = element.subjectShort;
             let childrens = [];
@@ -96,9 +97,9 @@ async function getQuads(stream) {
                 parentShort: element.objectShort,
                 properties: []
             })
-        } else if(element.subject == 'https://schema.org/Thing' && element.object == 'http://www.w3.org/2000/01/rdf-schema#Class') {
+        } else if(element.subject == 'http://schema.org/Thing' && element.object == 'http://www.w3.org/2000/01/rdf-schema#Class') {
             tmpProp.push({
-                name: 'https://schema.org/Thing',
+                name: 'http://schema.org/Thing',
                 nameShort: 'Thing',
                 parent: 'this',
                 parentShort: 'this',
@@ -108,13 +109,13 @@ async function getQuads(stream) {
     })
 
     test.forEach(function(element) {
-        if(element.predicate == 'https://schema.org/domainIncludes') {
+        if(element.predicate == 'http://schema.org/domainIncludes') {
                 if(tmpProp.some(e => e.nameShort == element.objectShort)) {
                     const tmpObj = tmpProp.find(e => e.nameShort == element.objectShort);
                     tmpProp[tmpProp.indexOf(tmpObj)].properties.push(element.subjectShort);
                 }    
         }
-        if(element.predicate == 'https://schema.org/rangeIncludes') {
+        if(element.predicate == 'http://schema.org/rangeIncludes') {
             if(propNoNested.some(e => e.nameShort == element.subjectShort)) {
                 const tmpObj = propNoNested.find(e => e.nameShort == element.subjectShort)
                 propNoNested[propNoNested.indexOf(tmpObj)].types.push(element.objectShort);
@@ -136,17 +137,19 @@ async function getQuads(stream) {
         replacePropsNoNested(element);
     })
 
-    // // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
-    // console.log('add no nested elements');
-    // tmpProp.forEach(function(element) {
-    //     replaceElementsNoNested(element);
-    // })
+    // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
+    console.log('add no nested elements');
+    tmpProp.forEach(function(element) {
+        replaceElementsNoNested(element);
+    })
 
     // DODAWANIE ELEMENTÓW DO BAZY DANYCH !!!!
     console.log('add elements');
     mainObjects.forEach(function(element) {
         replaceElements(element);
     })
+    
+    console.log('End remake database');
 })()
 
 async function replacePropsNoNested(data) {
@@ -215,6 +218,4 @@ const addPropDB = async (data) => {
     } catch (error) {
         console.log(error);
     }
-}   
-
-console.log('End remake database');
+}
