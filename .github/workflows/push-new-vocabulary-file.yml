@@ -28,10 +28,7 @@ jobs:
           SUBSTRING=${SUBSTRING//[!0-9]/}
           echo "length: ${#SUBSTRING}"
           #if [ ${#SUBSTRING} -eq 8 ]; then echo "mam cie!"; break fi
-          if [ ${#string} == 8 ]; then
-            echo "mam cie!"
-            break
-          fi
+          if [ ${#string} == 8 ]; then echo "mam cie!" break fi
           echo $SUBSTRING
         done <version.json
     - name: display ttl
