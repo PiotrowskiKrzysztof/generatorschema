@@ -1,5 +1,7 @@
 require('../db/mongoose');
 const fs = require('fs');
+const mongoose = require('mongoose');
+const { default: mongoose } = require('mongoose');
 const N3 = require('n3');
 const path = require('path');
 const Element = require('../db/models/element');
@@ -150,6 +152,8 @@ async function getQuads(stream) {
     })
     
     console.log('End remake database');
+    mongoose.connection.close();
+    console.log('Close connection database');
 })()
 
 async function replacePropsNoNested(data) {
