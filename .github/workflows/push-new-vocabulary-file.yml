@@ -25,3 +25,4 @@ jobs:
         node server.js
         chmod +x ./controllers/ApplicationsController.js
         ./controllers/ApplicationsController.js
+        
