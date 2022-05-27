@@ -135,57 +135,60 @@ async function getQuads(stream) {
     propNoNested.forEach(function(element) {
         replacePropsNoNested(element);
     })
-    async function replacePropsNoNested(data) {
-        const element = await PropNoNested.findOne({ nameShort: data.nameShort });
-        if(element === null) {
-            addPropDB({
-                name: data.name,
-                nameShort: data.nameShort,
-                types: data.types
-            })
-        } else {
-            element.types = data.types;
-        }
-    }
 
     // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
     console.log('add no nested elements');
     tmpProp.forEach(function(element) {
         replaceElementsNoNested(element);
     })
-    async function replaceElementsNoNested(data) {
-        const element = await ElementNoNested.findOne({ nameShort: data.nameShort });
-        if(element === null) {
-            addElementDBNoNested({
-                name: data.name,
-                nameShort: data.nameShort,
-                parent: data.parent,
-                parentShort: data.parentShort,
-                properties: data.properties
-            })
-        } else {
-            element.properties = data.properties
-        }
-    }
 
     // DODAWANIE ELEMENTÓW DO BAZY DANYCH !!!!
     console.log('add elements');
     mainObjects.forEach(function(element) {
         replaceElements(element);
     })
-    async function replaceElements(data) {
-        const element = await Element.findOne({ nameShort: data.nameShort });
-        if(element === null) {
-            addElementDB({
-                name: data.name,
-                nameShort: data.nameShort,
-                childrens: data.childrens
-            })
-        } else {
-            element.childrens = data.childrens
-        }
-    }
 })()
+
+async function replacePropsNoNested(data) {
+    const element = await PropNoNested.findOne({ nameShort: data.nameShort });
+    if(element === null) {
+        addPropDB({
+            name: data.name,
+            nameShort: data.nameShort,
+            types: data.types
+        })
+    } else {
+        element.types = data.types;
+    }
+}
+
+async function replaceElementsNoNested(data) {
+    const element = await ElementNoNested.findOne({ nameShort: data.nameShort });
+    if(element === null) {
+        addElementDBNoNested({
+            name: data.name,
+            nameShort: data.nameShort,
+            parent: data.parent,
+            parentShort: data.parentShort,
+            properties: data.properties
+        })
+    } else {
+        element.properties = data.properties
+    }
+}
+
+async function replaceElements(data) {
+    const element = await Element.findOne({ nameShort: data.nameShort });
+    if(element === null) {
+        addElementDB({
+            name: data.name,
+            nameShort: data.nameShort,
+            childrens: data.childrens
+        })
+    } else {
+        element.childrens = data.childrens
+    }
+}
 
 const addElementDB = async (data) => {
     try {
