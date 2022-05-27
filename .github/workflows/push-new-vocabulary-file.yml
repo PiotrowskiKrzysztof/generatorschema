@@ -23,5 +23,6 @@ jobs:
         echo $url
         curl ${url} > schemaorg-current-http.ttl
         awk '($1>t){t=$1}END{print t}' version.json
+        echo "$(<version.json)"
     - name: display ttl
       run: echo "$(<schemaorg-current-http.ttl)"
