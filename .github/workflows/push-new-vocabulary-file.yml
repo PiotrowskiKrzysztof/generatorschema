@@ -8,16 +8,9 @@ env:
 jobs:
   curl:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 15.x, 16.x]
     steps:
     - name: checkout
       uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
     - name: curl
       run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
     - name: display file
