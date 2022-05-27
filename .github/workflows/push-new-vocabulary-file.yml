@@ -14,10 +14,11 @@ jobs:
     - name: current version schema
       run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/versions.json > version.json
     - name: curl
+      run: |
         finallVersion=14.0
         echo $finallVersion
         url="https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/${finallVersion}/schemaorg-current-http.ttl"
         echo $url
-      run: curl ${url} > schemaorg-current-http.ttl
+        curl ${url} > schemaorg-current-http.ttl
     - name: display ttl
       run: echo "$(<schemaorg-current-http.ttl)"
