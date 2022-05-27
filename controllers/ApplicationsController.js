@@ -8,6 +8,8 @@ const PropNoNested = require('../db/models/propNoNested');
 
 exports.store = (req, res) => {
 
+    console.log('1');
+
     const parser = new N3.Parser();
     const rdfStream = fs.createReadStream(path.join('./schemaorg-current-http.ttl'));
 
@@ -133,6 +135,7 @@ exports.store = (req, res) => {
         // DODANIE NIEZAGNIEŻDŻONYCH WŁAŚCIWOŚCI
         propNoNested.forEach(function(element) {
             replacePropsNoNested(element);
+            console.log('2 - Replace Props No Nested');
         })
         async function replacePropsNoNested(data) {
             const element = await PropNoNested.findOne({ nameShort: data.nameShort });
@@ -150,6 +153,7 @@ exports.store = (req, res) => {
         // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
         tmpProp.forEach(function(element) {
             replaceElementsNoNested(element);
+            console.log('3 - Replace Elements No Nested');
         })
         async function replaceElementsNoNested(data) {
             const element = await ElementNoNested.findOne({ nameShort: data.nameShort });
@@ -169,6 +173,7 @@ exports.store = (req, res) => {
         // DODAWANIE ELEMENTÓW DO BAZY DANYCH !!!!
         mainObjects.forEach(function(element) {
             replaceElements(element);
+            console.log('4 - Replace Elements');
         })
         async function replaceElements(data) {
             const element = await Element.findOne({ nameShort: data.nameShort });
