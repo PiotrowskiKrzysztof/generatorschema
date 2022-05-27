@@ -23,7 +23,9 @@ jobs:
         echo $url
         curl ${url} > schemaorg-current-http.ttl
         while read p; do
-          SUBSTRING=$(echo $p| cut -d' ' -f 2) | sed 's/"//g'
+          SUBSTRING=$(echo $p| cut -d' ' -f 2)
+          SUBSTRING=${SUBSTRING:0:1}
+          SUBSTRING=${SUBSTRING:11:2}
           echo $SUBSTRING
         done <version.json
     - name: display ttl
