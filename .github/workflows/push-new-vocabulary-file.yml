@@ -20,4 +20,3 @@ jobs:
         npm i
         chmod +x ./controllers/ApplicationsController.js
         node ./controllers/ApplicationsController.js        
-
