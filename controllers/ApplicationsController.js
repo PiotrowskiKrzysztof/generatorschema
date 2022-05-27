@@ -8,7 +8,7 @@ const PropNoNested = require('../db/models/propNoNested');
 
 console.log('0');
 
-exports.store = (req, res) => {
+
 
     console.log('1');
 
@@ -230,4 +230,3 @@ exports.store = (req, res) => {
             tmp += '</select>'
             res.send('completed');
     }   
-}
