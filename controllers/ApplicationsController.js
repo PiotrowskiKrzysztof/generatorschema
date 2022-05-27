@@ -6,6 +6,8 @@ const Element = require('../db/models/element');
 const ElementNoNested = require('../db/models/elementNoNested');
 const PropNoNested = require('../db/models/propNoNested');
 
+console.log('0');
+
 exports.store = (req, res) => {
 
     console.log('1');
