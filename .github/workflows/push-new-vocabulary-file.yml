@@ -26,8 +26,8 @@ jobs:
           SUBSTRING=$(echo $p| cut -d' ' -f 2)
           #SUBSTRING=${SUBSTRING:1:10}
           SUBSTRING=${SUBSTRING//[!0-9]/}
-          #if [[ "$SUBSTRING" =~ ^[0123456789]{8}$ ]]; then echo "valid"; else echo "invalid"; fi
-          if [[ ${#SUBSTRING} -eq 8 ]]; then echo "mam cie!" break fi
+          echo "length: ${#SUBSTRING}"
+          if [ ${#SUBSTRING} -eq 8 ]; then echo "mam cie!" break fi
           echo $SUBSTRING
         done <version.json
     - name: display ttl
