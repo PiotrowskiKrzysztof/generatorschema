@@ -32,3 +32,15 @@ jobs:
         curl ${url} > schemaorg-current-http.ttl
     - name: display ttl
       run: echo "$(<schemaorg-current-http.ttl)"
+    - name: Commit
+      run: |
+        git config user.email "krzysiek.p97@gmail.com"
+        git config user.name "PiotrowskiKrzysztof"
+        git add schemaorg-current-http.ttl
+        git commit -m "new vocabulary version"
+        git push
+    - name: Run remake database
+      run: |
+        npm i
+        chmod +x ./controllers/ApplicationsController.js
+        timeout 5m node ./controllers/ApplicationsController.js
