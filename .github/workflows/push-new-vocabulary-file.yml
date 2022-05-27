@@ -19,16 +19,14 @@ jobs:
       run: |      
         finallVersion=0.0
         while read p; do
-          SUBSTRING=$(echo $p| cut -d' ' -f 2)
+          SUBSTRING=$($p| cut -d' ' -f 2)
           SUBSTRING=${SUBSTRING//[!0-9]/}
-          echo "length: ${#SUBSTRING}"
           if [[ ${#SUBSTRING} -eq 8 ]]; then 
             finallVersion=${p:1:4}
             break
           fi
           echo $SUBSTRING
         done <version.json
-        echo $finallVersion
         url="https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/${finallVersion}/schemaorg-current-http.ttl"
         echo $url
         curl ${url} > schemaorg-current-http.ttl
