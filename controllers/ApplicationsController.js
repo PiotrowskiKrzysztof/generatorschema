@@ -136,11 +136,11 @@ async function getQuads(stream) {
         replacePropsNoNested(element);
     })
 
-    // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
-    console.log('add no nested elements');
-    tmpProp.forEach(function(element) {
-        replaceElementsNoNested(element);
-    })
+    // // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
+    // console.log('add no nested elements');
+    // tmpProp.forEach(function(element) {
+    //     replaceElementsNoNested(element);
+    // })
 
     // DODAWANIE ELEMENTÓW DO BAZY DANYCH !!!!
     console.log('add elements');
