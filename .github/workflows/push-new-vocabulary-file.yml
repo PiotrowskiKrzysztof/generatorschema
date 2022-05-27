@@ -27,7 +27,7 @@ jobs:
           #SUBSTRING=${SUBSTRING:1:10}
           SUBSTRING=${SUBSTRING//[!0-9]/}
           #if [[ "$SUBSTRING" =~ ^[0123456789]{8}$ ]]; then echo "valid"; else echo "invalid"; fi
-          if [[ "${#SUBSTRING}" == 8 ]]; then echo "mam cie!" break fi
+          if [[ ${#SUBSTRING} -eq 8 ]]; then echo "mam cie!" break fi
           echo $SUBSTRING
         done <version.json
     - name: display ttl
