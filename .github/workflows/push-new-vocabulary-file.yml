@@ -27,8 +27,7 @@ jobs:
           #SUBSTRING=${SUBSTRING:1:10}
           SUBSTRING=${SUBSTRING//[!0-9]/}
           echo "length: ${#SUBSTRING}"
-          #if [ ${#SUBSTRING} -eq 8 ]; then echo "mam cie!"; break fi
-          if [[ ${#string} == 8 ]]; then 
+          if [[ ${#string} -eq 8 ]]; then 
             echo "mam cie!"
             break
           fi
