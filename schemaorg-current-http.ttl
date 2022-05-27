@@ -19387,3 +19387,4 @@ schema:identifier a rdf:Property ;
     schema:rangeIncludes schema:PropertyValue,
         schema:Text,
         schema:URL .
+
