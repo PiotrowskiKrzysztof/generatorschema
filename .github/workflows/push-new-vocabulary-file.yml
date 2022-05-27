@@ -11,19 +11,11 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v3
+    - name: current version schema
+      run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/versions.json > version.json
+    - name: display file
+      run: echo "$(<version.json)"
     - name: curl
       run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/14.0/schemaorg-current-http.ttl > schemaorg-current-http.ttl
     - name: display file
       run: echo "$(<schemaorg-current-http.ttl)"
-    - name: Commit
-      run: |
-        git config user.email "krzysiek.p97@gmail.com"
-        git config user.name "PiotrowskiKrzysztof"
-        git add schemaorg-current-http.ttl
-        git commit -m "new vocabulary version"
-        git push
-    - name: Run remake database
-      run: |
-        npm i
-        chmod +x ./controllers/ApplicationsController.js
-        timeout 5m node ./controllers/ApplicationsController.js
