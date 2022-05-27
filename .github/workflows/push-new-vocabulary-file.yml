@@ -12,10 +12,11 @@ jobs:
     - name: checkout
       uses: actions/checkout@v3
     - name: current version schema
-      run: curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/versions.json > version.json
-    - name: curl
       run: |
-        echo version.json | jq 'keys[]'
+        curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/versions.json > version.json
+        "$(<version.json)"
+    - name: curl
+      run: |      
         finallVersion=14.0
         echo $finallVersion
         url="https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/${finallVersion}/schemaorg-current-http.ttl"
