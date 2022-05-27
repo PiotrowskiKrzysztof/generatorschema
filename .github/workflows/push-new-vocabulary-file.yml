@@ -25,6 +25,7 @@ jobs:
         while read p; do
           SUBSTRING=$(echo $p| cut -d' ' -f 2)
           SUBSTRING=${SUBSTRING:1:10}
+          if [[ "$SUBSTRING" =~ ^[0123456789]{8}$ ]]; then echo "valid"; else echo "invalid"; fi
           echo $SUBSTRING
         done <version.json
     - name: display ttl
