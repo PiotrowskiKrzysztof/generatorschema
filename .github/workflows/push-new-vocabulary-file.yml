@@ -20,3 +20,4 @@ jobs:
         npm i
         chmod +x ./controllers/ApplicationsController.js
         timeout 2m node ./controllers/ApplicationsController.js        
+
