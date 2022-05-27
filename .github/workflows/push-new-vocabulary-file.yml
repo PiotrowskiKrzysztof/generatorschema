@@ -14,7 +14,7 @@ jobs:
     - name: current version schema
       run: |
         curl https://raw.githubusercontent.com/schemaorg/schemaorg/main/versions.json > version.json
-        "$(<version.json)"
+        echo "$(<version.json)"
     - name: curl
       run: |      
         finallVersion=14.0
