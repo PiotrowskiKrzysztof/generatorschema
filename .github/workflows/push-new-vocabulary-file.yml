@@ -13,4 +13,4 @@ jobs:
     - name: display file
       run: echo "$(<schemaorg-current-http.ttl)"
     - name: Run remake database
-      run: sh ./controllers/ApplicationsController.js
+      run: ./controllers/ApplicationsController.js
