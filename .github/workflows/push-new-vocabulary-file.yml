@@ -29,7 +29,6 @@ jobs:
           echo "length: ${#SUBSTRING}"
           if [[ ${#string} -eq 8 ]]; then 
             echo "mam cie!"
-            break
           fi
           echo $SUBSTRING
         done <version.json
