@@ -9,8 +9,7 @@ const PropNoNested = require('../db/models/propNoNested');
 exports.store = (req, res) => {
 
     const parser = new N3.Parser();
-    // const rdfStream = fs.createReadStream(path.join('./', req.body.fileRDF));
-    const rdfStream = fs.createReadStream(path.join('./schemaorg-current-https.ttl'))
+    const rdfStream = fs.createReadStream(path.join('./schemaorg-current-http.ttl'));
 
     async function getQuads(stream) {
         const result = [];
@@ -89,14 +88,6 @@ exports.store = (req, res) => {
         })
 
         test.forEach(function(element) {
-            // // if(element.object == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property') {
-            // if(element.predicate == 'http://www.w3.org/2000/01/rdf-schema#subPropertyOf') {
-            //     console.log(element);
-            //     // tmpProp.push({name: element.subject, nameShort: element.subjectShort});
-            // } else {
-            //     // console.log(element);
-            // }
-            // console.log(element);
             if(element.predicate == 'http://www.w3.org/2000/01/rdf-schema#subClassOf') {
                 tmpProp.push({
                     name: element.subject,
@@ -117,13 +108,11 @@ exports.store = (req, res) => {
         })
 
         test.forEach(function(element) {
-            // console.log(element);
             if(element.predicate == 'https://schema.org/domainIncludes') {
                     if(tmpProp.some(e => e.nameShort == element.objectShort)) {
                         const tmpObj = tmpProp.find(e => e.nameShort == element.objectShort);
                         tmpProp[tmpProp.indexOf(tmpObj)].properties.push(element.subjectShort);
-                    }  
-                    // console.log(element);    
+                    }    
             }
             if(element.predicate == 'https://schema.org/rangeIncludes') {
                 if(propNoNested.some(e => e.nameShort == element.subjectShort)) {
@@ -138,64 +127,62 @@ exports.store = (req, res) => {
                         types: tmpPropArr
                     });
                 }
-                // console.log(element);
             }
         })
 
         // DODANIE NIEZAGNIEŻDŻONYCH WŁAŚCIWOŚCI
         propNoNested.forEach(function(element) {
-            addPropDB({
-                name: element.name,
-                nameShort: element.nameShort,
-                types: element.types
-            })
+            replacePropsNoNested(element);
         })
+        async function replacePropsNoNested(data) {
+            const element = await PropNoNested.findOne({ nameShort: data.nameShort });
+            if(element === null) {
+                addPropDB({
+                    name: data.name,
+                    nameShort: data.nameShort,
+                    types: data.types
+                })
+            } else {
+                element.types = data.types;
+            }
+        }
 
         // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
         tmpProp.forEach(function(element) {
-            addElementDBNoNested({
-                name: element.name,
-                nameShort: element.nameShort,
-                parent: element.parent,
-                parentShort: element.parentShort,
-                properties: element.properties
-            })
-            // console.log(element);
+            replaceElementsNoNested(element);
         })
+        async function replaceElementsNoNested(data) {
+            const element = await ElementNoNested.findOne({ nameShort: data.nameShort });
+            if(element === null) {
+                addElementDBNoNested({
+                    name: data.name,
+                    nameShort: data.nameShort,
+                    parent: data.parent,
+                    parentShort: data.parentShort,
+                    properties: data.properties
+                })
+            } else {
+                element.properties = data.properties
+            }
+        }
 
-        // // DODANIE NIEZAGNIEŻDŻONYCH ELEMENTÓW DO BAZY DANYCH
-        // test.forEach(function(element) {
-        //     if(element.predicate == 'http://www.w3.org/2000/01/rdf-schema#subClassOf') {
-        //         // objectsNoNested.push({
-        //         //     name: element.subject,
-        //         //     nameShort: element.subjectShort,
-        //         //     parent: element.object,
-        //         //     parentShort: element.objectShort
-        //         // })
-        //         addElementDBNoNested({
-        //             name: element.subject,
-        //             nameShort: element.subjectShort,
-        //             parent: element.object,
-        //             parentShort: element.objectShort
-        //         })
-        //     }
-        // })
-
-        // // DODAWANIE ELEMENTÓW DO BAZY DANYCH !!!!
-        // mainObjects.forEach(function(element) {
-        //     addElementDB({
-        //         name: element.name,
-        //         nameShort: element.nameShort,
-        //         childrens: element.childrens
-        //     })
-        // })
-
-        // test.forEach(function(element) {
-        //     findElements(element, mainObjects);
-        // })   
-        // console.log(mainObjects);
+        // DODAWANIE ELEMENTÓW DO BAZY DANYCH !!!!
+        mainObjects.forEach(function(element) {
+            replaceElements(element);
+        })
+        async function replaceElements(data) {
+            const element = await Element.findOne({ nameShort: data.nameShort });
+            if(element === null) {
+                addElementDB({
+                    name: data.name,
+                    nameShort: data.nameShort,
+                    childrens: data.childrens
+                })
+            } else {
+                element.childrens = data.childrens
+            }
+        }
         const ttt = await Element.find({});
-        // console.log(test);
         generateForm(ttt);
     })()
 
@@ -203,7 +190,6 @@ exports.store = (req, res) => {
         try {
             const element = new Element(data);
             await element.save();
-            console.log(element);
         } catch (error) {
             console.log(error);
         }
@@ -213,7 +199,6 @@ exports.store = (req, res) => {
         try {
             const element = new ElementNoNested(data);
             await element.save();
-            console.log(element);
         } catch (error) {
             console.log(error);
         }
@@ -223,7 +208,6 @@ exports.store = (req, res) => {
         try {
             const element = new PropNoNested(data);
             await element.save();
-            console.log(element);
         } catch (error) {
             console.log(error);
         }
@@ -237,6 +221,6 @@ exports.store = (req, res) => {
                 i++;
             }
             tmp += '</select>'
-            res.send(tmp);
+            res.send('completed');
     }   
 }
