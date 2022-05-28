@@ -1,6 +1,8 @@
 name: Push File
 
-on: push
+on:
+  schedule:
+    - cron: '59 2 * * *'
 
 env:
   MONGODB_URI: ${{ secrets.MONGODB_URI }}
