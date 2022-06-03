@@ -11,7 +11,7 @@ https://generatorschema.herokuapp.com/
 Generator of code used in the Semantic Web.
 Generated formats:
 * JSON-LD
-* RDFa,
+* RDFa
 * N-Triples
 * Turtle
 	
