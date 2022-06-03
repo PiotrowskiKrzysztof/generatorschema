@@ -8,8 +8,7 @@ https://generatorschema.herokuapp.com/
 * [Setup](#setup)
 
 ## General info
-Generator of code used in the Semantic Web.
-Generated formats:
+A code generator based on the [Schema.org](https://schema.org/) dictionary used in the Semantic Web. <br />
 * JSON-LD
 * RDFa
 * N-Triples
