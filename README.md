@@ -1,13 +1,13 @@
 # generatorschema
+https://generatorschema.herokuapp.com/
 
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Env]($env)
+* [Env](#env)
 * [Setup](#setup)
 
 ## General info
-https://generatorschema.herokuapp.com/
 Generator of code used in the Semantic Web.
 Generated formats:
 * JSON-LD
