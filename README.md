@@ -9,6 +9,7 @@ https://generatorschema.herokuapp.com/
 
 ## General info
 A code generator based on the [Schema.org](https://schema.org/) dictionary used in the Semantic Web. <br />
+Generated formats:
 * JSON-LD
 * RDFa
 * N-Triples
