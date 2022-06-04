@@ -41,7 +41,7 @@ $ node server.js
 
 Run script to build database:
 ```
-node controllers/ApplicationsController
+$ node controllers/ApplicationsController
 ```
 
 # License
